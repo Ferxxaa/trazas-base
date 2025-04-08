@@ -1,21 +1,21 @@
 // src/App.jsx
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
 import Login from './pages/Login';
-import Foro from './pages/Foro';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
+import Profile from './pages/Profile';
+import { auth } from './firebase';  // Firebase Authentication
 
-function App() {
+const App = () => {
   return (
-    <BrowserRouter>
-      <Navbar />
+    <Router>
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/foro" element={<Foro />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
-      <Footer />
-    </BrowserRouter>
+    </Router>
   );
-}
+};
 
-export default App; // Asegúrate de tener esta línea
+export default App;

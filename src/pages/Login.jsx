@@ -1,9 +1,10 @@
+// src/pages/Login.jsx
 import React, { useState } from 'react';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -11,35 +12,63 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Iniciar sesión con email y contraseña
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/foro'); // Redirige al foro después de iniciar sesión exitosamente
+      navigate('/');
     } catch (error) {
-      // Mostrar el error en caso de que falle el inicio de sesión
-      alert("Error al iniciar sesión: " + error.message);
+      alert('Error al iniciar sesión: ' + error.message);
     }
   };
 
   return (
-    <div>
+    <div style={styles.container}>
       <h2>Iniciar sesión</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleLogin} style={styles.form}>
         <input
-          type="email" // Usamos tipo email para validación automática
+          type="email"
+          placeholder="Correo electrónico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          placeholder="Correo electrónico"
           required
+          style={styles.input}
         />
         <input
           type="password"
+          placeholder="Contraseña"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          placeholder="Contraseña"
           required
+          style={styles.input}
         />
-        <button type="submit">Entrar</button>
+        <button type="submit" style={styles.button}>Iniciar sesión</button>
       </form>
     </div>
   );
-}
+};
+
+const styles = {
+  container: {
+    textAlign: 'center',
+    padding: '20px',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  input: {
+    margin: '10px',
+    padding: '10px',
+    width: '200px',
+    fontSize: '16px',
+  },
+  button: {
+    padding: '10px 20px',
+    backgroundColor: '#007BFF',
+    color: 'white',
+    border: 'none',
+    cursor: 'pointer',
+    fontSize: '16px',
+  },
+};
+
+export default Login;
