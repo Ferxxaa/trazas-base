@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
-import { auth, database } from '../firebase';
+import { auth } from '../firebase';
+import { db } from '../firebase';
 import './Login.css'; // Importa el archivo CSS
 
 const CrearUsuario = () => {

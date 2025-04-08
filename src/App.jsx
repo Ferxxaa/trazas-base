@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import CrearUsuario from './pages/CrearUsuario';
 import theme from './theme';
-import ForoTrabajadores from './components/ForoTrabajadores';
+import ForoTrabajadores from './pages/ForoTrabajadores';
 
 
 

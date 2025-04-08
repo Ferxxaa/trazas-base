@@ -1,8 +1,6 @@
-import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
-import { getStorage } from 'firebase/storage'; 
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDj1kKbfBv0uhI_m2l8Zkpfon04nhr7Pto",
@@ -14,16 +12,10 @@ const firebaseConfig = {
   measurementId: "G-HB62ZVL1Q9"
 };
 
+// Inicialización de Firebase
 const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);  // Solo se declara una vez
+const db = getDatabase(app);
 
-// Inicializa Firestore y Authentication
-const db = getFirestore(app);
-const auth = getAuth(app);
-
- 
-const database = getDatabase(app); // Inicializa Realtime Database
-const storage = getStorage(app);  // Inicializa Storage
-
-export { storage };
-export { database }; // Asegúrate de exportar 'database'
-export { db, auth, collection, getDocs, addDoc, deleteDoc, doc, updateDoc };
+// Exportación para que puedas usar auth y db en otros archivos
+export { auth, db };
