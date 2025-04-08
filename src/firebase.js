@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-
+import { getDatabase } from 'firebase/database';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDj1kKbfBv0uhI_m2l8Zkpfon04nhr7Pto",
@@ -19,4 +19,8 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 const auth = getAuth(app);
 
+ 
+const database = getDatabase(app); // Inicializa Realtime Database
+
+export { database }; // Asegúrate de exportar 'database'
 export { db, auth, collection, getDocs, addDoc, deleteDoc, doc, updateDoc };

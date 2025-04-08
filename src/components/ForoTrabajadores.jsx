@@ -12,9 +12,10 @@ const ForoTrabajadores = () => {
   // Obtener los mensajes del foro desde Firestore
   const getPosts = async () => {
     try {
-      const postsCollection = collection(db, 'foros'); // Referencia correcta a la colección
+      const postsCollection = collection(db, 'foros');
       const snapshot = await getDocs(postsCollection);
       const postsList = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
+      console.log(postsList); // Verificar que los datos estén siendo recuperados
       setPosts(postsList);
     } catch (error) {
       console.error('Error obteniendo los posts: ', error);
@@ -27,7 +28,7 @@ const ForoTrabajadores = () => {
     try {
       const userDoc = await getDoc(doc(db, 'usuarios', auth.currentUser.uid));
       if (userDoc.exists()) {
-        setRole(userDoc.data().role); // Establecer el rol
+        setRole(userDoc.data().role);
       }
     } catch (error) {
       console.error("Error al obtener el rol: ", error);

@@ -1,116 +1,74 @@
-// src/pages/CrearUsuario.jsx
 import React, { useState } from 'react';
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database';
-import { useNavigate } from 'react-router-dom';
-import { initializeApp, getApps } from 'firebase/app';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { ref, set } from 'firebase/database';
+import { auth, database } from '../firebase';
+import './Login.css'; // Importa el archivo CSS
 
 const CrearUsuario = () => {
-  const [nombre, setNombre] = useState('');
-  const [apellido, setApellido] = useState('');
-  const [correo, setCorreo] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
   const [rut, setRut] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
-  const navigate = useNavigate();
 
-  // Configuración de Firebase
-  const firebaseConfig = {
-    apiKey: "your-api-key",
-    authDomain: "your-auth-domain",
-    databaseURL: "your-database-url",
-    projectId: "your-project-id",
-    storageBucket: "your-storage-bucket",
-    messagingSenderId: "your-sender-id",
-    appId: "your-app-id",
-  };
-
-  // Inicializar Firebase solo si no está inicializado
-  const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
-  const auth = getAuth(app);
-  const db = getDatabase(app);
-
-  const handleSubmit = async (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-
     try {
-      // Crear el usuario con correo y contraseña predeterminada
-      const userCredential = await createUserWithEmailAndPassword(auth, correo, 'contraseña123');
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      const userId = user.uid;
 
-      // Guardar el usuario en la base de datos
-      await set(ref(db, 'usuarios/' + userId), {
-        nombre,
-        apellido,
-        correo,
-        rut,
+      const userRef = ref(database, 'usuarios/' + user.uid);
+      await set(userRef, {
+        nombre: firstName,
+        apellido: lastName,
+        rut: rut,
       });
 
-      // Si el usuario es administrador, guardarlo en la sección admin
-      if (isAdmin) {
-        await set(ref(db, 'admin/' + userId), true);
-      }
-
-      alert('Usuario creado correctamente');
-      navigate('/login'); // Redirigir al login después de crear el usuario
+      alert('Usuario creado con éxito');
     } catch (error) {
-      console.error("Error al crear el usuario:", error.message);
-      alert("Hubo un error al crear el usuario.");
+      console.error('Error al registrar usuario: ', error);
+      alert('Hubo un error al crear la cuenta');
     }
   };
 
   return (
-    <div>
-      <h2>Crear Nuevo Usuario</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nombre:</label>
+    <div className="login-container">
+      <div className="login-card">
+        <h2>Crear Usuario</h2>
+        <form onSubmit={handleRegister}>
+          
           <input
             type="text"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
+            placeholder="Nombre"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Apellido:</label>
+          
           <input
             type="text"
-            value={apellido}
-            onChange={(e) => setApellido(e.target.value)}
+            placeholder="Apellido"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>Correo Electrónico:</label>
-          <input
-            type="email"
-            value={correo}
-            onChange={(e) => setCorreo(e.target.value)}
-            required
-          />
-        </div>
-        <div>
-          <label>RUT:</label>
           <input
             type="text"
+            placeholder="RUT"
             value={rut}
             onChange={(e) => setRut(e.target.value)}
             required
           />
-        </div>
-        <div>
-          <label>¿Es Administrador?</label>
           <input
-            type="checkbox"
-            checked={isAdmin}
-            onChange={() => setIsAdmin(!isAdmin)}
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
           />
-        </div>
-        <div>
-          <button type="submit">Crear Usuario</button>
-        </div>
-      </form>
+          <button type="submit">Registrar</button>
+        </form>
+      </div>
     </div>
   );
 };
