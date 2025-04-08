@@ -9,6 +9,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import CrearUsuario from './pages/CrearUsuario';
 import theme from './theme';
+import ForoTrabajadores from './components/ForoTrabajadores';
+
+
 
 
 const App = () => {
@@ -21,6 +24,7 @@ const App = () => {
         <Route path="/multimedia" element={<><Navbar /><Multimedia /></>} />
         <Route path="/login" element={<Login />} />
         <Route path="/crear-usuario" element={<CrearUsuario />} />
+        <Route path="/foro-trabajadores" element={<ForoTrabajadores />} />
       </Routes>
     </Router>
   );

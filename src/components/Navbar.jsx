@@ -31,6 +31,8 @@ const CustomNavbar = () => {
             <Nav.Link as={Link} to="/" style={{ color: '#f5f5f5' }}>Inicio</Nav.Link>
             <Nav.Link as={Link} to="/profile" style={{ color: '#f5f5f5' }}>Perfil</Nav.Link>
             <Nav.Link as={Link} to="/multimedia" style={{ color: '#f5f5f5' }}>Multimedia</Nav.Link>
+            <Nav.Link as={Link} to="/foro-trabajadores" style={{ color: '#f5f5f5' }}>Foro de Trabajadores</Nav.Link>
+            
             <Button
               variant="light"
               onClick={handleLogout}

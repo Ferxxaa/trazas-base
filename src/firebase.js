@@ -1,6 +1,6 @@
-import { initializeApp, getApps } from 'firebase/app';
+import { initializeApp } from 'firebase/app';
+import { getFirestore, collection, getDocs, addDoc, deleteDoc, doc, updateDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
-import { getDatabase } from 'firebase/database';
 
 
 const firebaseConfig = {
@@ -13,9 +13,10 @@ const firebaseConfig = {
   measurementId: "G-HB62ZVL1Q9"
 };
 
-const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
+const app = initializeApp(firebaseConfig);
 
+// Inicializa Firestore y Authentication
+const db = getFirestore(app);
 const auth = getAuth(app);
-const db = getDatabase(app);
 
-export { auth, db };
+export { db, auth, collection, getDocs, addDoc, deleteDoc, doc, updateDoc };
