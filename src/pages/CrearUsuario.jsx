@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { auth, database } from '../firebase';
-import { useNavigate } from 'react-router-dom'; // Importa useNavigate para manejar la navegación
 import './Login.css'; // Importa el archivo CSS
 
 const CrearUsuario = () => {
@@ -11,19 +10,36 @@ const CrearUsuario = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [rut, setRut] = useState('');
-  const navigate = useNavigate(); // Obtiene la función de navegación
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    // Verificar que los campos obligatorios estén completos (excluyendo el correo)
+    if (!password || !firstName || !lastName || !rut) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
+
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      let userCredential;
+
+      // Si el correo está proporcionado, intentamos registrar con correo y contraseña
+      if (email) {
+        userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      } else {
+        // Si el correo no está proporcionado, usamos solo la contraseña (esto es poco común, pero aquí lo dejamos para tu caso)
+        userCredential = await createUserWithEmailAndPassword(auth, 'default@domain.com', password); // Correo predeterminado
+      }
+
       const user = userCredential.user;
 
+      // Referencia a la base de datos para guardar los detalles del usuario
       const userRef = ref(database, 'usuarios/' + user.uid);
       await set(userRef, {
         nombre: firstName,
         apellido: lastName,
         rut: rut,
+        correo: email || null, // Guardamos el correo solo si está presente
       });
 
       alert('Usuario creado con éxito');
@@ -31,10 +47,6 @@ const CrearUsuario = () => {
       console.error('Error al registrar usuario: ', error);
       alert('Hubo un error al crear la cuenta');
     }
-  };
-
-  const handleGoBack = () => {
-    navigate(-1); // Retrocede a la página anterior
   };
 
   return (
@@ -64,6 +76,12 @@ const CrearUsuario = () => {
             required
           />
           <input
+            type="text"
+            placeholder="Correo (Opcional)"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
             type="password"
             placeholder="Contraseña"
             value={password}
@@ -72,8 +90,6 @@ const CrearUsuario = () => {
           />
           <button type="submit">Registrar</button>
         </form>
-
-        <button onClick={handleGoBack} className="go-back-btn">Volver</button> {/* Botón de retroceso */}
       </div>
     </div>
   );
