@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
-import { auth, database } from '../firebase';
+import { auth, database, storage } from '../firebase';
 import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ref, get, set } from 'firebase/database';
+import './Profile.css';  // Importa el CSS para el componente
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -12,24 +13,23 @@ const Profile = () => {
   const [rut, setRut] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+  const [photo, setPhoto] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-
-        // Obtener los datos del usuario desde la Realtime Database
         const userRef = ref(database, 'usuarios/' + currentUser.uid);
         const snapshot = await get(userRef);
-        
         if (snapshot.exists()) {
           const userData = snapshot.val();
-          setName(userData.nombre || ''); // Cargar el nombre
-          setLastName(userData.apellido || ''); // Cargar el apellido
-          setRut(userData.rut || ''); // Cargar el RUT
-          setPhone(userData.telefono || ''); // Cargar el teléfono
-          setEmail(user.email); // Correo ya está en el objeto user
+          setName(userData.nombre || '');
+          setLastName(userData.apellido || '');
+          setRut(userData.rut || '');
+          setPhone(userData.telefono || '');
+          setEmail(currentUser.email || ''); // Agregar un valor predeterminado en caso de que `currentUser.email` sea `null`
         }
       } else {
         navigate('/login');
@@ -41,19 +41,16 @@ const Profile = () => {
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
-
     if (user) {
       try {
-        // Actualizar los datos del usuario en la Realtime Database
         const userRef = ref(database, 'usuarios/' + user.uid);
         await set(userRef, {
           nombre: name,
           apellido: lastName,
           rut: rut,
           telefono: phone,
-          email: email,
+          email: email, // Mantener email como parte de la actualización
         });
-
         alert('Perfil actualizado con éxito');
       } catch (error) {
         console.error('Error al actualizar perfil: ', error);
@@ -62,51 +59,65 @@ const Profile = () => {
     }
   };
 
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setPhoto(file);
+  };
+
   return (
-    <div>
-      <Navbar />
-      <h1>Perfil de Usuario</h1>
-      {user ? (
-        <div>
-          <div>
-            <p><strong>Correo:</strong> {email}</p>
-            <p><strong>Nombre:</strong> {name}</p>
-            <p><strong>Apellido:</strong> {lastName}</p>
-            <p><strong>RUT:</strong> {rut}</p>
-            <p><strong>Teléfono:</strong> {phone}</p>
-          </div>
-          <form onSubmit={handleUpdateProfile}>
-            <input
-              type="text"
-              placeholder="Nombre"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Apellido"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="RUT"
-              value={rut}
-              onChange={(e) => setRut(e.target.value)}
-            />
-            <input
-              type="text"
-              placeholder="Teléfono"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-            />
-            <button type="submit">Actualizar Perfil</button>
-          </form>
-        </div>
-      ) : (
-        <p>Cargando...</p>
-      )}
-    </div>
+    <div className="profile-container">
+  <div className="profile-card">
+    <h2>Perfil de Usuario</h2>
+    {user ? (
+      <div>
+        {/* Cambia aquí para usar un placeholder */}
+        <img 
+          src={photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/300x200'} 
+          alt="Foto de perfil" 
+        />
+        <form onSubmit={handleUpdateProfile}>
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            disabled={!isEditing}
+          />
+          <input
+            type="text"
+            placeholder="Apellido"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            disabled={!isEditing}
+          />
+          <input
+            type="text"
+            placeholder="RUT"
+            value={rut}
+            onChange={(e) => setRut(e.target.value)}
+            disabled={!isEditing}
+          />
+          <input
+            type="text"
+            placeholder="Teléfono"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            disabled={!isEditing}
+          />
+          {isEditing ? (
+            <button type="submit">Guardar Cambios</button>
+          ) : (
+            <button type="button" onClick={() => setIsEditing(true)}>Editar Perfil</button>
+          )}
+        </form>
+        <input type="file" onChange={handleFileChange} />
+        <button className="upload-button" onClick={handleUpdateProfile}>Subir Foto de Perfil</button>
+      </div>
+    ) : (
+      <p>Cargando...</p>
+    )}
+  </div>
+</div>
   );
 };
 
