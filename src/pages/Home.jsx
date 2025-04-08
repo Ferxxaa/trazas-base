@@ -1,46 +1,91 @@
 // src/pages/Home.jsx
-import React, { useEffect, useState } from 'react';
-import Navbar from '../components/Navbar';
-import { auth } from '../firebase';
-import { useNavigate } from 'react-router-dom';
-import { onAuthStateChanged } from 'firebase/auth';
+import React from 'react';
+import { Carousel, Card, Button, Container, Row, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
-  const [user, setUser] = useState(null);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        setUser(currentUser);
-      } else {
-        navigate('/login');
-      }
-    });
-
-    return () => unsubscribe();  // Cleanup the listener on unmount
-  }, [navigate]);
-
   return (
-    <div style={styles.container}>
-      <Navbar />
-      <div style={styles.content}>
-        <h1>Bienvenido a la página principal</h1>
-        <p>¡Aquí puedes ver el contenido después de iniciar sesión!</p>
-      </div>
+    <div>
+      {/* Carrusel */}
+      <Carousel>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://via.placeholder.com/800x400"
+            alt="First slide"
+          />
+          <Carousel.Caption>
+            <h3>Bienvenido a nuestra empresa</h3>
+            <p>Descubre más sobre nosotros y nuestros productos</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://via.placeholder.com/800x400"
+            alt="Second slide"
+          />
+          <Carousel.Caption>
+            <h3>Innovación y calidad</h3>
+            <p>Siempre a la vanguardia con productos de alta calidad.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+        <Carousel.Item>
+          <img
+            className="d-block w-100"
+            src="https://via.placeholder.com/800x400"
+            alt="Third slide"
+          />
+          <Carousel.Caption>
+            <h3>Compromiso con nuestros clientes</h3>
+            <p>Tu satisfacción es nuestra prioridad.</p>
+          </Carousel.Caption>
+        </Carousel.Item>
+      </Carousel>
+
+      {/* Cards debajo del carrusel */}
+      <Container className="mt-5">
+        <Row>
+          <Col md={4}>
+            <Card>
+              <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
+              <Card.Body>
+                <Card.Title>Card title 1</Card.Title>
+                <Card.Text>
+                  Una breve descripción de la primera card. Conozca más sobre nuestros servicios y productos.
+                </Card.Text>
+                <Button variant="primary">Ver más</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={4}>
+            <Card>
+              <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
+              <Card.Body>
+                <Card.Title>Card title 2</Card.Title>
+                <Card.Text>
+                  Una breve descripción de la segunda card. ¡No te pierdas nuestras ofertas!
+                </Card.Text>
+                <Button variant="primary">Ver más</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col md={4}>
+            <Card>
+              <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
+              <Card.Body>
+                <Card.Title>Card title 3</Card.Title>
+                <Card.Text>
+                  Una breve descripción de la tercera card. Descubre todas nuestras novedades.
+                </Card.Text>
+                <Button variant="primary">Ver más</Button>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    marginTop: '60px',
-    padding: '20px',
-    textAlign: 'center',
-  },
-  content: {
-    marginTop: '20px',
-  },
 };
 
 export default Home;

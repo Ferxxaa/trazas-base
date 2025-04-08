@@ -1,16 +1,21 @@
 // src/components/Navbar.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';  // Importa useNavigate
 import { auth } from '../firebase';
 import { signOut } from 'firebase/auth';
 
 const Navbar = () => {
+  const navigate = useNavigate();  // Crea la instancia de useNavigate
+
   const handleLogout = () => {
-    signOut(auth).then(() => {
-      alert('Has cerrado sesión');
-    }).catch((error) => {
-      console.error('Error al cerrar sesión', error);
-    });
+    signOut(auth)
+      .then(() => {
+        alert('Has cerrado sesión');
+        navigate('/login');  // Redirige a la página de login después de cerrar sesión
+      })
+      .catch((error) => {
+        console.error('Error al cerrar sesión', error);
+      });
   };
 
   return (
@@ -21,6 +26,9 @@ const Navbar = () => {
         </li>
         <li style={styles.navItem}>
           <Link to="/profile" style={styles.navLink}>Perfil</Link>
+        </li>
+        <li style={styles.navItem}>
+          <Link to="/multimedia" style={styles.navLink}>Multimedia</Link>
         </li>
         <li style={styles.navItem}>
           <button onClick={handleLogout} style={styles.logoutButton}>Cerrar sesión</button>
