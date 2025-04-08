@@ -44,7 +44,7 @@ const CustomNavbar = () => {
               }}
             >
               Cerrar sesión
-            </Button>
+            </Button>  
           </Nav>
         </Navbar.Collapse>
       </Container>
