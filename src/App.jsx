@@ -7,6 +7,8 @@ import Profile from './pages/Profile';
 import Multimedia from './pages/Multimedia';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
+import CrearUsuario from './pages/CrearUsuario';
+import theme from './theme';
 
 
 const App = () => {
@@ -18,6 +20,7 @@ const App = () => {
         <Route path="/profile" element={<><Navbar /><Profile /></>} />
         <Route path="/multimedia" element={<><Navbar /><Multimedia /></>} />
         <Route path="/login" element={<Login />} />
+        <Route path="/crear-usuario" element={<CrearUsuario />} />
       </Routes>
     </Router>
   );

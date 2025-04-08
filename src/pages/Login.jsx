@@ -13,23 +13,26 @@ const Login = () => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      navigate('/');
+      navigate('/'); // Redirigir al home después de iniciar sesión
     } catch (error) {
       alert('Error al iniciar sesión: ' + error.message);
     }
   };
 
+  const navigateToCreateUser = () => {
+    navigate('/crear-usuario'); // Redirige a la página de creación de usuario
+  };
+
   return (
-    <div style={styles.container}>
+    <div>
       <h2>Iniciar sesión</h2>
-      <form onSubmit={handleLogin} style={styles.form}>
+      <form onSubmit={handleLogin}>
         <input
           type="email"
           placeholder="Correo electrónico"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
-          style={styles.input}
         />
         <input
           type="password"
@@ -37,38 +40,14 @@ const Login = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
-          style={styles.input}
         />
-        <button type="submit" style={styles.button}>Iniciar sesión</button>
+        <button type="submit">Iniciar sesión</button>
       </form>
+      <button onClick={navigateToCreateUser}>
+        ¿No tienes cuenta? Crear cuenta
+      </button>
     </div>
   );
-};
-
-const styles = {
-  container: {
-    textAlign: 'center',
-    padding: '20px',
-  },
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  input: {
-    margin: '10px',
-    padding: '10px',
-    width: '200px',
-    fontSize: '16px',
-  },
-  button: {
-    padding: '10px 20px',
-    backgroundColor: '#007BFF',
-    color: 'white',
-    border: 'none',
-    cursor: 'pointer',
-    fontSize: '16px',
-  },
 };
 
 export default Login;
