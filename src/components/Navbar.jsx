@@ -1,17 +1,18 @@
-// src/components/Navbar.jsx
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';  // Importa useNavigate
-import { auth } from '../firebase';
+import { Link, useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, Nav, Container, Button, NavDropdown } from 'react-bootstrap';
 
-const Navbar = () => {
-  const navigate = useNavigate();  // Crea la instancia de useNavigate
+const CustomNavbar = () => {
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
         alert('Has cerrado sesión');
-        navigate('/login');  // Redirige a la página de login después de cerrar sesión
+        navigate('/login');
       })
       .catch((error) => {
         console.error('Error al cerrar sesión', error);
@@ -19,57 +20,23 @@ const Navbar = () => {
   };
 
   return (
-    <nav style={styles.navbar}>
-      <ul style={styles.navList}>
-        <li style={styles.navItem}>
-          <Link to="/" style={styles.navLink}>Inicio</Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/profile" style={styles.navLink}>Perfil</Link>
-        </li>
-        <li style={styles.navItem}>
-          <Link to="/multimedia" style={styles.navLink}>Multimedia</Link>
-        </li>
-        <li style={styles.navItem}>
-          <button onClick={handleLogout} style={styles.logoutButton}>Cerrar sesión</button>
-        </li>
-      </ul>
-    </nav>
+    <Navbar expand="lg" bg="primary" variant="dark" fixed="top">
+      <Container>
+        <Navbar.Brand as={Link} to="/">Trazas</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ms-auto">
+            <Nav.Link as={Link} to="/">Inicio</Nav.Link>
+            <Nav.Link as={Link} to="/profile">Perfil</Nav.Link>
+            <Nav.Link as={Link} to="/multimedia">Multimedia</Nav.Link>
+            <Button variant="outline-light" onClick={handleLogout} className="ms-2">
+              Cerrar sesión
+            </Button>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 };
 
-const styles = {
-  navbar: {
-    backgroundColor: '#007BFF',
-    padding: '10px 20px',
-    position: 'fixed',
-    width: '100%',
-    top: '0',
-    zIndex: 1000,
-  },
-  navList: {
-    listStyleType: 'none',
-    display: 'flex',
-    justifyContent: 'flex-end',
-    margin: 0,
-    padding: 0,
-  },
-  navItem: {
-    marginLeft: '20px',
-  },
-  navLink: {
-    color: '#fff',
-    textDecoration: 'none',
-    fontSize: '16px',
-  },
-  logoutButton: {
-    backgroundColor: 'red',
-    color: 'white',
-    border: 'none',
-    padding: '8px 12px',
-    fontSize: '16px',
-    cursor: 'pointer',
-  },
-};
-
-export default Navbar;
+export default CustomNavbar;
