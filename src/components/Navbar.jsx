@@ -33,6 +33,10 @@ const CustomNavbar = () => {
             <Nav.Link as={Link} to="/multimedia" style={{ color: '#f5f5f5' }}>Multimedia</Nav.Link>
             <Nav.Link as={Link} to="/foro-trabajadores" style={{ color: '#f5f5f5' }}>Foro de Trabajadores</Nav.Link>
             
+            <Nav.Link as={Link} to="/admin" style={{ color: '#f5f5f5' }}>Panel de Admin</Nav.Link>
+            
+            
+            
             {/* Agregar más enlaces según sea necesario */}
             {/* Botón de cerrar sesión */}  
             

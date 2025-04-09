@@ -13,8 +13,15 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/'); // Redirigir al home después de iniciar sesión
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      // Verifica si el correo del usuario es el del admin
+      if (user.email === 'admin@example.com') {
+        navigate('/admin'); // Redirige al panel de admin
+      } else {
+        navigate('/'); // Redirige al home o al dashboard para usuarios comunes
+      }
     } catch (error) {
       alert('Error al iniciar sesión: ' + error.message);
     }

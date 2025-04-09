@@ -35,7 +35,7 @@ const CrearUsuario = () => {
       const user = userCredential.user;
 
       // Referencia a la base de datos para guardar los detalles del usuario
-      const userRef = ref(database, 'usuarios/' + user.uid);
+      const userRef = ref(db, 'usuarios/' + user.uid);
       await set(userRef, {
         nombre: firstName,
         apellido: lastName,

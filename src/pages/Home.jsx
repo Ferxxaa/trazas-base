@@ -1,6 +1,8 @@
 import React from 'react';
 import { Carousel, Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { FaHardHat, FaTools, FaBuilding, FaPhoneAlt } from 'react-icons/fa';
+
 
 const Home = () => {
   return (
@@ -49,7 +51,10 @@ const Home = () => {
             <Card style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
               <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
               <Card.Body>
-                <Card.Title style={{ color: '#c62828' }}>Card title 1</Card.Title>
+                <Card.Title style={{ color: '#e60000' }}>
+                  <FaBuilding style={{ marginRight: '10px' }} />
+                  Construcción de Edificaciones
+                </Card.Title>
                 <Card.Text style={{ color: '#424242' }}>
                   Una breve descripción de la primera card. Conozca más sobre nuestros servicios y productos.
                 </Card.Text>
@@ -61,7 +66,10 @@ const Home = () => {
             <Card style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
               <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
               <Card.Body>
-                <Card.Title style={{ color: '#c62828' }}>Card title 2</Card.Title>
+                <Card.Title style={{ color: '#e60000' }}>
+                  <FaHardHat style={{ marginRight: '10px' }} />
+                  Proyectos Industriales
+                </Card.Title>
                 <Card.Text style={{ color: '#424242' }}>
                   Una breve descripción de la segunda card. ¡No te pierdas nuestras ofertas!
                 </Card.Text>
@@ -73,7 +81,10 @@ const Home = () => {
             <Card style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
               <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
               <Card.Body>
-                <Card.Title style={{ color: '#c62828' }}>Card title 3</Card.Title>
+                <Card.Title style={{ color: '#e60000' }}>
+                  <FaTools style={{ marginRight: '10px' }} />
+                  Reformas y Remodelaciones
+                </Card.Title>
                 <Card.Text style={{ color: '#424242' }}>
                   Una breve descripción de la tercera card. Descubre todas nuestras novedades.
                 </Card.Text>
@@ -83,6 +94,9 @@ const Home = () => {
           </Col>
         </Row>
       </Container>
+
+      {/* Footer */}
+      
     </div>
   );
 };
