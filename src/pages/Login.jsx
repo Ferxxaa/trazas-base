@@ -35,7 +35,7 @@ const Login = () => {
     <div className="login-container">
       <div className="login-card">
         {/* Logo aquí */}
-        <img src="/path-to-your-logo.png" alt="Logo" className="logo" />
+        <img src="/images/logo_trazas.png" alt="Logo" className="logo" />
 
         <h2>Iniciar sesión</h2>
         <form onSubmit={handleLogin}>

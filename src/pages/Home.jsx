@@ -1,41 +1,44 @@
 import React from 'react';
 import { Carousel, Card, Button, Container, Row, Col } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { FaHardHat, FaTools, FaBuilding, FaPhoneAlt } from 'react-icons/fa';
-
+import { FaHardHat, FaTools, FaBuilding } from 'react-icons/fa';
 
 const Home = () => {
   return (
-    <div style={{ backgroundColor: '#f5f5f5', paddingTop: '70px' }}>
-      {/* Carrusel */}
-      <Carousel>
+    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh', paddingTop: '70px' }}>
+      {/* Carrusel full width */}
+      <Carousel fade interval={5000}>
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://via.placeholder.com/800x400"
+            src="/images/carrusel2.png"
             alt="First slide"
+            style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
           <Carousel.Caption>
             <h3 style={{ color: '#f5f5f5' }}>Bienvenido a nuestra empresa</h3>
             <p style={{ color: '#eeeeee' }}>Descubre más sobre nosotros y nuestros productos</p>
           </Carousel.Caption>
         </Carousel.Item>
+
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://via.placeholder.com/800x400"
+            src="/images/carrusel11.png"
             alt="Second slide"
+            style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
           <Carousel.Caption>
             <h3 style={{ color: '#f5f5f5' }}>Innovación y calidad</h3>
             <p style={{ color: '#eeeeee' }}>Siempre a la vanguardia con productos de alta calidad.</p>
           </Carousel.Caption>
         </Carousel.Item>
+
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="https://via.placeholder.com/800x400"
+            src="/images/carrusel11.png"
             alt="Third slide"
+            style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
           <Carousel.Caption>
             <h3 style={{ color: '#f5f5f5' }}>Compromiso con nuestros clientes</h3>
@@ -45,58 +48,36 @@ const Home = () => {
       </Carousel>
 
       {/* Cards debajo del carrusel */}
-      <Container className="mt-5">
-        <Row>
-          <Col md={4} className="mb-4">
-            <Card style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
-              <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
-              <Card.Body>
-                <Card.Title style={{ color: '#e60000' }}>
-                  <FaBuilding style={{ marginRight: '10px' }} />
-                  Construcción de Edificaciones
-                </Card.Title>
-                <Card.Text style={{ color: '#424242' }}>
-                  Una breve descripción de la primera card. Conozca más sobre nuestros servicios y productos.
-                </Card.Text>
-                <Button variant="danger">Ver más</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4} className="mb-4">
-            <Card style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
-              <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
-              <Card.Body>
-                <Card.Title style={{ color: '#e60000' }}>
-                  <FaHardHat style={{ marginRight: '10px' }} />
-                  Proyectos Industriales
-                </Card.Title>
-                <Card.Text style={{ color: '#424242' }}>
-                  Una breve descripción de la segunda card. ¡No te pierdas nuestras ofertas!
-                </Card.Text>
-                <Button variant="danger">Ver más</Button>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col md={4} className="mb-4">
-            <Card style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
-              <Card.Img variant="top" src="https://via.placeholder.com/300x200" />
-              <Card.Body>
-                <Card.Title style={{ color: '#e60000' }}>
-                  <FaTools style={{ marginRight: '10px' }} />
-                  Reformas y Remodelaciones
-                </Card.Title>
-                <Card.Text style={{ color: '#424242' }}>
-                  Una breve descripción de la tercera card. Descubre todas nuestras novedades.
-                </Card.Text>
-                <Button variant="danger">Ver más</Button>
-              </Card.Body>
-            </Card>
-          </Col>
+      <Container fluid className="py-5 px-4">
+        <Row className="justify-content-center">
+          {[{
+            icon: <FaBuilding />,
+            title: 'Construcción de Edificaciones',
+            text: 'Una breve descripción de la primera card. Conozca más sobre nuestros servicios y productos.'
+          }, {
+            icon: <FaHardHat />,
+            title: 'Proyectos Industriales',
+            text: 'Una breve descripción de la segunda card. ¡No te pierdas nuestras ofertas!'
+          }, {
+            icon: <FaTools />,
+            title: 'Reformas y Remodelaciones',
+            text: 'Una breve descripción de la tercera card. Descubre todas nuestras novedades.'
+          }].map((item, index) => (
+            <Col key={index} md={4} sm={6} className="d-flex align-items-stretch mb-4">
+              <Card className="w-100 shadow-sm" style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
+                <Card.Img variant="top" src="https://via.placeholder.com/400x200" />
+                <Card.Body className="d-flex flex-column">
+                  <Card.Title style={{ color: '#e60000' }}>
+                    {item.icon} <span style={{ marginLeft: '10px' }}>{item.title}</span>
+                  </Card.Title>
+                  <Card.Text style={{ color: '#424242', flexGrow: 1 }}>{item.text}</Card.Text>
+                  <Button variant="danger" className="mt-3 align-self-start">Ver más</Button>
+                </Card.Body>
+              </Card>
+            </Col>
+          ))}
         </Row>
       </Container>
-
-      {/* Footer */}
-      
     </div>
   );
 };

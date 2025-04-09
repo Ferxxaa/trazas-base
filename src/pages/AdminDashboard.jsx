@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Grid, Paper, Container, Box, CircularProgress, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { Typography, Grid, Paper, Container, Box, CircularProgress, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle, Avatar } from '@mui/material';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import './Dashboard.css'; // Asegúrate de que la ruta es correcta
 
 // Importación del Navbar
 import Navbar from '../components/Navbar';
 
 // Importar Firebase
-import { db } from '../firebase'; // Asegúrate de que la ruta sea correcta
-import { ref, get, set, remove, update } from 'firebase/database'; // Importar las funciones necesarias
+import { db } from '../firebase';
+import { ref, get, set, remove, update } from 'firebase/database';
 
-// Definimos los colores que usaremos
-const ITALIAN_RED = '#C62B27';  // Rojo italiano
-const LIGHT_GRAY = '#D3D3D3';  // Gris claro
+const ITALIAN_RED = '#C62B27';  
+const LIGHT_GRAY = '#F4F6F9';  
 
-// Colores para las celdas del gráfico
 const COLORS = [
   ITALIAN_RED, '#A9A9A9', '#808080', '#D3D3D3', '#B0C4DE', '#F08080', '#FF6347', '#8B0000'
 ];
@@ -24,11 +23,10 @@ const Dashboard = () => {
   const [usuariosTotales, setUsuariosTotales] = useState(0);
   const [graficoUsuarios, setGraficoUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [usuarioForm, setUsuarioForm] = useState({ nombre: '', correo: '' }); // Estado para formulario de usuario
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // Estado para abrir el diálogo de agregar/editar
-  const [selectedUser, setSelectedUser] = useState(null); // Usuario seleccionado para edición
+  const [usuarioForm, setUsuarioForm] = useState({ nombre: '', apellido: '', correo: '' });
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-  // Obtener usuarios desde Firebase
   useEffect(() => {
     const usuariosRef = ref(db, 'usuarios');
     get(usuariosRef)
@@ -40,7 +38,9 @@ const Dashboard = () => {
           const datosParaGrafico = usuariosArray.map((user) => ({
             name: user.nombre || 'Sin nombre',
             value: 1,
-            id: user.id, // Agregar ID para modificar/eliminar
+            id: user.id,
+            apellido: user.apellido || 'Sin apellido',
+            correo: user.correo || 'No disponible',
           }));
           setGraficoUsuarios(datosParaGrafico);
         }
@@ -54,15 +54,16 @@ const Dashboard = () => {
   }, []);
 
   const handleAddUser = () => {
-    const newUserId = Date.now().toString(); // Crear un ID único para el nuevo usuario
+    const newUserId = Date.now().toString();
     set(ref(db, `usuarios/${newUserId}`), {
       id: newUserId,
       nombre: usuarioForm.nombre,
+      apellido: usuarioForm.apellido,
       correo: usuarioForm.correo,
     })
       .then(() => {
         setIsDialogOpen(false);
-        setUsuarioForm({ nombre: '', correo: '' });
+        setUsuarioForm({ nombre: '', apellido: '', correo: '' });
       })
       .catch((error) => console.error('Error al agregar usuario:', error));
   };
@@ -71,11 +72,12 @@ const Dashboard = () => {
     if (!selectedUser) return;
     update(ref(db, `usuarios/${selectedUser.id}`), {
       nombre: usuarioForm.nombre,
+      apellido: usuarioForm.apellido,
       correo: usuarioForm.correo,
     })
       .then(() => {
         setIsDialogOpen(false);
-        setUsuarioForm({ nombre: '', correo: '' });
+        setUsuarioForm({ nombre: '', apellido: '', correo: '' });
         setSelectedUser(null);
       })
       .catch((error) => console.error('Error al actualizar usuario:', error));
@@ -85,7 +87,6 @@ const Dashboard = () => {
     remove(ref(db, `usuarios/${userId}`))
       .then(() => {
         console.log('Usuario eliminado');
-        // Volver a obtener los datos después de eliminar
         const usuariosRef = ref(db, 'usuarios');
         get(usuariosRef)
           .then((snapshot) => {
@@ -97,6 +98,8 @@ const Dashboard = () => {
                 name: user.nombre || 'Sin nombre',
                 value: 1,
                 id: user.id,
+                apellido: user.apellido || 'Sin apellido',
+                correo: user.correo || 'No disponible',
               }));
               setGraficoUsuarios(datosParaGrafico);
             }
@@ -108,7 +111,7 @@ const Dashboard = () => {
 
   const theme = createTheme({
     palette: {
-      primary: { main: ITALIAN_RED },  // Usamos rojo italiano como color primario
+      primary: { main: ITALIAN_RED },
     },
     typography: {
       h5: { fontWeight: 500, fontSize: 26 },
@@ -123,15 +126,15 @@ const Dashboard = () => {
         <Navbar />
         <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: LIGHT_GRAY }}>
           <Container maxWidth="lg">
-            <Grid container spacing={3}>
+            <Grid container spacing={3} sx={{ flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               {/* Caja de usuarios registrados */}
               <Grid item xs={12} md={6}>
-                <Paper sx={{ p: 3, textAlign: 'center', backgroundColor: LIGHT_GRAY }}>
+                <Paper sx={{ p: 3, textAlign: 'center', bgcolor: 'white', boxShadow: 3 }}>
                   <Typography variant="h6" color="textSecondary">Usuarios Registrados</Typography>
                   <Typography variant="h3" color="primary">
                     {loading ? <CircularProgress /> : usuariosTotales}
                   </Typography>
-                  <Button variant="contained" color="primary" onClick={() => setIsDialogOpen(true)}>
+                  <Button variant="contained" color="primary" onClick={() => setIsDialogOpen(true)} sx={{ mt: 2 }}>
                     Agregar Usuario
                   </Button>
                 </Paper>
@@ -139,7 +142,7 @@ const Dashboard = () => {
               
               {/* Gráfico de usuarios por nombre */}
               <Grid item xs={12} md={6}>
-                <Paper sx={{ p: 3, backgroundColor: LIGHT_GRAY }}>
+                <Paper sx={{ p: 3, bgcolor: 'white', boxShadow: 3 }}>
                   <Typography variant="h6" gutterBottom color="textSecondary">
                     Usuarios por Nombre
                   </Typography>
@@ -163,25 +166,58 @@ const Dashboard = () => {
                 </Paper>
               </Grid>
 
-              {/* Aquí mostramos los usuarios en una lista con opciones de modificar y eliminar */}
+              {/* Panel a la derecha para agregar logo */}
+              <Grid item xs={12} md={3}>
+                <Paper sx={{ p: 3, bgcolor: 'white', boxShadow: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                  <Avatar
+                    alt="Logo Empresa"
+                    src="/path/to/logo.jpg"
+                    sx={{ width: 120, height: 120, mb: 2 }}
+                  />
+                  <Typography variant="h6" color="textSecondary">Logo de la Empresa</Typography>
+                  <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                    Cambiar Logo
+                  </Button>
+                </Paper>
+              </Grid>
+
+              {/* Tabla de usuarios */}
               <Grid item xs={12}>
-                <Paper sx={{ p: 3, backgroundColor: LIGHT_GRAY }}>
+                <Paper sx={{ p: 3, bgcolor: 'white', boxShadow: 3 }}>
                   <Typography variant="h6" gutterBottom color="textSecondary">
                     Lista de Usuarios
                   </Typography>
-                  <ul>
-                    {graficoUsuarios.map((user) => (
-                      <li key={user.id}>
-                        {user.name}
-                        <Button onClick={() => {
-                          setSelectedUser(user);
-                          setUsuarioForm({ nombre: user.name, correo: user.correo });
-                          setIsDialogOpen(true);
-                        }}>Modificar</Button>
-                        <Button color="error" onClick={() => handleDeleteUser(user.id)}>Eliminar</Button>
-                      </li>
-                    ))}
-                  </ul>
+                  <div style={{ overflowX: 'auto' }}>
+                    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                      <thead>
+                        <tr>
+                          <th style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>ID</th>
+                          <th style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>Nombre</th>
+                          <th style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>Apellido</th>
+                          <th style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>Correo</th>
+                          <th style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>Acciones</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {graficoUsuarios.map((user) => (
+                          <tr key={user.id}>
+                            <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.id}</td>
+                            <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
+                            <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.apellido}</td>
+                            <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.correo}</td>
+                            <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>
+                              <Button onClick={() => {
+                                setSelectedUser(user);
+                                setUsuarioForm({ nombre: user.name, apellido: user.apellido, correo: user.correo });
+                                setIsDialogOpen(true);
+                              }}>Modificar</Button>
+                              <Button color="error" onClick={() => handleDeleteUser(user.id)}>Eliminar</Button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 </Paper>
               </Grid>
             </Grid>
@@ -201,6 +237,13 @@ const Dashboard = () => {
             margin="normal"
           />
           <TextField
+            label="Apellido"
+            fullWidth
+            value={usuarioForm.apellido}
+            onChange={(e) => setUsuarioForm({ ...usuarioForm, apellido: e.target.value })}
+            margin="normal"
+          />
+          <TextField
             label="Correo"
             fullWidth
             value={usuarioForm.correo}
@@ -210,12 +253,7 @@ const Dashboard = () => {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setIsDialogOpen(false)} color="secondary">Cancelar</Button>
-          <Button
-            onClick={selectedUser ? handleUpdateUser : handleAddUser}
-            color="primary"
-          >
-            {selectedUser ? 'Actualizar' : 'Agregar'}
-          </Button>
+          <Button onClick={selectedUser ? handleUpdateUser : handleAddUser} color="primary">Guardar</Button>
         </DialogActions>
       </Dialog>
     </ThemeProvider>
