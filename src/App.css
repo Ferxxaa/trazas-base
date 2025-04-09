@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #dcdcdc; /* Fondo gris claro */
 }
 
 .app {
@@ -118,6 +118,7 @@ body {
   z-index: 1000;
   font-size: 0.9rem;
 }
+
 /* CSS para pantallas de escritorio grandes */
 @media (min-width: 1024px) {
   .navbar {

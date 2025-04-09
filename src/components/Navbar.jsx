@@ -23,6 +23,11 @@ const CustomNavbar = () => {
     <Navbar expand="lg" style={{ backgroundColor: '#c62828' }} variant="dark" fixed="top">
       <Container>
         <Navbar.Brand as={Link} to="/" style={{ color: '#f5f5f5' }}>
+          <img 
+            src="/images/logo_trazas.png" 
+            alt="Logo" 
+            style={{ width: '40px', height: '40px', marginRight: '10px' }} 
+          />
           <strong>Trazas</strong>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -32,14 +37,9 @@ const CustomNavbar = () => {
             <Nav.Link as={Link} to="/profile" style={{ color: '#f5f5f5' }}>Perfil</Nav.Link>
             <Nav.Link as={Link} to="/multimedia" style={{ color: '#f5f5f5' }}>Multimedia</Nav.Link>
             <Nav.Link as={Link} to="/foro-trabajadores" style={{ color: '#f5f5f5' }}>Foro de Trabajadores</Nav.Link>
-            
             <Nav.Link as={Link} to="/admin" style={{ color: '#f5f5f5' }}>Panel de Admin</Nav.Link>
             
-            
-            
-            {/* Agregar más enlaces según sea necesario */}
             {/* Botón de cerrar sesión */}  
-            
             <Button
               variant="light"
               onClick={handleLogout}

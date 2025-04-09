@@ -124,7 +124,7 @@ const Dashboard = () => {
       <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
         <CssBaseline />
         <Navbar />
-        <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: LIGHT_GRAY }}>
+        <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: LIGHT_GRAY, pt: 15 }}>
           <Container maxWidth="lg">
             <Grid container spacing={3} sx={{ flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
               {/* Caja de usuarios registrados */}
@@ -139,7 +139,7 @@ const Dashboard = () => {
                   </Button>
                 </Paper>
               </Grid>
-              
+
               {/* Gráfico de usuarios por nombre */}
               <Grid item xs={12} md={6}>
                 <Paper sx={{ p: 3, bgcolor: 'white', boxShadow: 3 }}>
@@ -234,26 +234,31 @@ const Dashboard = () => {
             fullWidth
             value={usuarioForm.nombre}
             onChange={(e) => setUsuarioForm({ ...usuarioForm, nombre: e.target.value })}
-            margin="normal"
+            sx={{ mb: 2 }}
           />
           <TextField
             label="Apellido"
             fullWidth
             value={usuarioForm.apellido}
             onChange={(e) => setUsuarioForm({ ...usuarioForm, apellido: e.target.value })}
-            margin="normal"
+            sx={{ mb: 2 }}
           />
           <TextField
             label="Correo"
             fullWidth
             value={usuarioForm.correo}
             onChange={(e) => setUsuarioForm({ ...usuarioForm, correo: e.target.value })}
-            margin="normal"
+            sx={{ mb: 2 }}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setIsDialogOpen(false)} color="secondary">Cancelar</Button>
-          <Button onClick={selectedUser ? handleUpdateUser : handleAddUser} color="primary">Guardar</Button>
+          <Button
+            onClick={selectedUser ? handleUpdateUser : handleAddUser}
+            color="primary"
+          >
+            {selectedUser ? 'Actualizar' : 'Agregar'}
+          </Button>
         </DialogActions>
       </Dialog>
     </ThemeProvider>

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
 import { ref, get, set } from 'firebase/database';
 import './Profile.css';  // Importa el CSS para el componente
+import { Box } from '@mui/material';  // Asegúrate de importar Box
 
 const Profile = () => {
   const [user, setUser] = useState(null);
@@ -66,58 +67,60 @@ const Profile = () => {
   };
 
   return (
-    <div className="profile-container">
-      <div className="profile-card">
-        <h2>Perfil de Usuario</h2>
-        {user ? (
-          <div>
-            <img 
-              src={photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/300x200'} 
-              alt="Foto de perfil" 
-            />
-            <form onSubmit={handleUpdateProfile}>
-              <input
-                type="text"
-                placeholder="Nombre"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                disabled={!isEditing}
+    <Box pt={10}>  {/* Añadido Box con padding-top */}
+      <div className="profile-container">
+        <div className="profile-card">
+          <h2>Perfil de Usuario</h2>
+          {user ? (
+            <div>
+              <img 
+                src={photo ? URL.createObjectURL(photo) : 'https://via.placeholder.com/300x200'} 
+                alt="Foto de perfil" 
               />
-              <input
-                type="text"
-                placeholder="Apellido"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                disabled={!isEditing}
-              />
-              <input
-                type="text"
-                placeholder="RUT"
-                value={rut}
-                onChange={(e) => setRut(e.target.value)}
-                disabled={!isEditing}
-              />
-              <input
-                type="text"
-                placeholder="Teléfono"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                disabled={!isEditing}
-              />
-              {isEditing ? (
-                <button type="submit">Guardar Cambios</button>
-              ) : (
-                <button type="button" onClick={() => setIsEditing(true)}>Editar Perfil</button>
-              )}
-            </form>
-            <input type="file" onChange={handleFileChange} />
-            <button className="upload-button" onClick={handleUpdateProfile}>Subir Foto de Perfil</button>
-          </div>
-        ) : (
-          <p>Cargando...</p>
-        )}
+              <form onSubmit={handleUpdateProfile}>
+                <input
+                  type="text"
+                  placeholder="Nombre"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  disabled={!isEditing}
+                />
+                <input
+                  type="text"
+                  placeholder="Apellido"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  disabled={!isEditing}
+                />
+                <input
+                  type="text"
+                  placeholder="RUT"
+                  value={rut}
+                  onChange={(e) => setRut(e.target.value)}
+                  disabled={!isEditing}
+                />
+                <input
+                  type="text"
+                  placeholder="Teléfono"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  disabled={!isEditing}
+                />
+                {isEditing ? (
+                  <button type="submit">Guardar Cambios</button>
+                ) : (
+                  <button type="button" onClick={() => setIsEditing(true)}>Editar Perfil</button>
+                )}
+              </form>
+              <input type="file" onChange={handleFileChange} />
+              <button className="upload-button" onClick={handleUpdateProfile}>Subir Foto de Perfil</button>
+            </div>
+          ) : (
+            <p>Cargando...</p>
+          )}
+        </div>
       </div>
-    </div>
+    </Box>
   );
 };
 

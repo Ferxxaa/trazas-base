@@ -1,10 +1,11 @@
 import React from 'react';
 import { Carousel, Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { FaHardHat, FaTools, FaBuilding } from 'react-icons/fa';
+import { Box } from '@mui/material';  // Asegúrate de importar Box
 
 const Home = () => {
   return (
-    <div style={{ backgroundColor: '#f5f5f5', minHeight: '100vh', paddingTop: '70px' }}>
+    <Box pt={10} style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}> {/* Añadido Box con padding-top */}
       {/* Carrusel full width */}
       <Carousel fade interval={5000}>
         <Carousel.Item>
@@ -23,7 +24,7 @@ const Home = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="/images/carrusel11.png"
+            src="/images/carrusel2.png"
             alt="Second slide"
             style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
@@ -36,7 +37,7 @@ const Home = () => {
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="/images/carrusel11.png"
+            src="/images/carrusel2.png"
             alt="Third slide"
             style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
@@ -78,7 +79,7 @@ const Home = () => {
           ))}
         </Row>
       </Container>
-    </div>
+    </Box>
   );
 };
 
