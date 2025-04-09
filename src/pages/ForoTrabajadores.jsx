@@ -1,142 +1,86 @@
-import React, { useEffect, useState } from 'react';
-import { db, auth } from '../firebase';
-import { ref, onValue, push, remove, update, get } from 'firebase/database';
-import { Container, Typography, Button, TextField, Card, CardContent } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { ref, onValue, push, set } from 'firebase/database';
+import { db, auth } from '../firebase';  // Asegúrate de que firebase.js esté configurado correctamente
+import Navbar from '../components/Navbar'; // Importa el Navbar
 
+// Componente para agregar un comentario
+const addComment = async (postId, commentContent) => {
+  const user = auth.currentUser;
+  if (!user) {
+    alert("Por favor, inicia sesión.");
+    return;
+  }
+
+  const commentsRef = ref(db, `foros/${postId}/comments`);
+  const newCommentRef = push(commentsRef);
+
+  await set(newCommentRef, {
+    content: commentContent,
+    authorId: user.uid,
+    authorName: user.displayName,
+    createdAt: new Date().toISOString(),
+  });
+};
+
+// Componente principal del Foro
 const ForoTrabajadores = () => {
   const [posts, setPosts] = useState([]);
-  const [role, setRole] = useState(null);
+  const [newComment, setNewComment] = useState('');
   const [loading, setLoading] = useState(true);
-  const [newPost, setNewPost] = useState({ title: '', content: '' });
 
-  const getPosts = () => {
+  useEffect(() => {
     const postsRef = ref(db, 'foros');
     onValue(postsRef, (snapshot) => {
       const data = snapshot.val();
-      const postsList = data
-        ? Object.keys(data).map(id => ({ id, ...data[id] }))
-        : [];
+      const postsList = data ? Object.keys(data).map(id => ({ id, ...data[id] })) : [];
       setPosts(postsList);
-    });
-  };
-
-  const getUserRole = async () => {
-    const user = auth.currentUser;
-    if (!user) return;
-
-    try {
-      const userRef = ref(db, `usuarios/${user.uid}`);
-      const snapshot = await get(userRef);
-      if (snapshot.exists()) {
-        setRole(snapshot.val().role);
-      }
-    } catch (error) {
-      console.error("Error al obtener el rol: ", error);
-    } finally {
       setLoading(false);
+    });
+  }, []);
+
+  const handleAddComment = (postId) => {
+    if (newComment.trim()) {
+      addComment(postId, newComment);
+      setNewComment(''); // Limpiar campo de comentario
     }
   };
 
-  const handleCreatePost = async () => {
-    if (role !== 'admin') return;
-
-    const postRef = ref(db, 'foros');
-    await push(postRef, {
-      title: newPost.title,
-      content: newPost.content,
-      createdAt: new Date().toISOString(),
-      authorId: auth.currentUser.uid,
-      authorName: auth.currentUser.displayName,
-      role: 'admin',
-    });
-
-    setNewPost({ title: '', content: '' });
-  };
-
-  const handleDeletePost = async (id) => {
-    if (role !== 'admin') return;
-
-    const postRef = ref(db, `foros/${id}`);
-    await remove(postRef);
-  };
-
-  const handleEditPost = async (id, updatedContent) => {
-    if (role !== 'admin') return;
-
-    const postRef = ref(db, `foros/${id}`);
-    await update(postRef, { content: updatedContent });
-  };
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (!user) {
-        window.location.href = '/';
-      } else {
-        getUserRole();
-        getPosts();
-      }
-    });
-
-    return () => unsubscribe();
-  }, []);
-
-  if (loading) return <Typography variant="h6">Cargando...</Typography>;
-
-  if (role !== 'admin' && role !== 'usuario') {
-    window.location.href = '/';
-    return null;
-  }
-
   return (
-    <Container maxWidth="lg">
-      <Typography variant="h2" gutterBottom>
-        Foro de Trabajadores
-      </Typography>
+    <div>
+      <Navbar /> {/* Agregar Navbar aquí */}
+      <h1>Foro de Trabajadores</h1>
+      {loading ? (
+        <p>Cargando publicaciones...</p>
+      ) : (
+        posts.map(post => (
+          <div key={post.id}>
+            <h3>{post.title}</h3>
+            <p>{post.content}</p>
+            <small>Publicado por: {post.authorName}</small>
+            
+            {/* Mostrar los comentarios */}
+            <div>
+              {Object.keys(post.comments || {}).map(commentId => (
+                <div key={commentId}>
+                  <p>{post.comments[commentId].content}</p>
+                  <small>Comentario por: {post.comments[commentId].authorName}</small>
+                </div>
+              ))}
+            </div>
 
-      {role === 'admin' && (
-        <div>
-          <TextField
-            label="Título"
-            value={newPost.title}
-            onChange={(e) => setNewPost({ ...newPost, title: e.target.value })}
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Contenido"
-            value={newPost.content}
-            onChange={(e) => setNewPost({ ...newPost, content: e.target.value })}
-            fullWidth
-            multiline
-            rows={4}
-            margin="normal"
-          />
-          <Button variant="contained" color="primary" onClick={handleCreatePost}>
-            Crear Post
-          </Button>
-        </div>
+            {/* Campo para agregar comentario */}
+            <div>
+              <textarea 
+                value={newComment} 
+                onChange={(e) => setNewComment(e.target.value)} 
+                placeholder="Escribe un comentario"
+              />
+              <button onClick={() => handleAddComment(post.id)}>Agregar Comentario</button>
+            </div>
+          </div>
+        ))
       )}
-
-      {posts.map((post) => (
-        <Card key={post.id} variant="outlined" sx={{ marginTop: 2 }}>
-          <CardContent>
-            <Typography variant="h5">{post.title}</Typography>
-            <Typography variant="body1">{post.content}</Typography>
-            <Typography variant="subtitle2">Publicado por: {post.authorName}</Typography>
-            {role === 'admin' && (
-              <div>
-                <Button variant="outlined" color="secondary" onClick={() => handleDeletePost(post.id)}>
-                  Eliminar
-                </Button>
-                <Button variant="outlined" color="primary" onClick={() => handleEditPost(post.id, 'Nuevo contenido')}>
-                  Editar
-                </Button>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      ))}
-    </Container>
+    </div>
   );
 };
 

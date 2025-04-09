@@ -167,19 +167,7 @@ const Dashboard = () => {
               </Grid>
 
               {/* Panel a la derecha para agregar logo */}
-              <Grid item xs={12} md={3}>
-                <Paper sx={{ p: 3, bgcolor: 'white', boxShadow: 3, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                  <Avatar
-                    alt="Logo Empresa"
-                    src="/path/to/logo.jpg"
-                    sx={{ width: 120, height: 120, mb: 2 }}
-                  />
-                  <Typography variant="h6" color="textSecondary">Logo de la Empresa</Typography>
-                  <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                    Cambiar Logo
-                  </Button>
-                </Paper>
-              </Grid>
+              
 
               {/* Tabla de usuarios */}
               <Grid item xs={12}>

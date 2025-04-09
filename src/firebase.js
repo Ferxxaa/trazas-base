@@ -1,6 +1,5 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-import 'firebase/firestore';  // Importar solo lo que necesitas
 import { getDatabase, ref, get } from "firebase/database";
 
 
