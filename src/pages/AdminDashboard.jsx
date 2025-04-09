@@ -5,7 +5,11 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
 // Importación del Navbar
-import Navbar from '../components/Navbar';  // Asegúrate de que la ruta sea correcta
+import Navbar from '../components/Navbar';
+
+// Importar Firebase
+import { db } from '../firebase'; // Asegúrate de que la ruta sea correcta
+import { ref, get } from 'firebase/database'; // Importar las funciones necesarias
 
 // Definimos los colores que usaremos
 const ITALIAN_RED = '#C62B27';  // Rojo italiano
@@ -22,26 +26,40 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Simulando la obtención de usuarios. Reemplaza esta parte con la llamada real a tu base de datos o API
-    setTimeout(() => {
-      const usuarios = [
-        { correo: 'user1@example.com' },
-        { correo: 'user2@example.com' },
-        { correo: 'user3@example.com' },
-        { correo: 'user4@example.com' },
-        { correo: 'user5@example.com' },
-      ];
+    // Obtener los usuarios desde la base de datos de Firebase
+    const usuariosRef = ref(db, 'usuarios'); // Ruta a los datos de usuarios en Firebase Realtime Database
+    get(usuariosRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const usuarios = snapshot.val(); // Datos de usuarios obtenidos
+          console.log("Usuarios obtenidos de Firebase:", usuarios); // Ver los datos en la consola
+          
+          // Convertir los usuarios en un array
+          const usuariosArray = Object.values(usuarios); // Obtenemos un array de los valores de 'usuarios'
 
-      setUsuariosTotales(usuarios.length);
+          console.log("Array de usuarios:", usuariosArray); // Ver los usuarios convertidos en array
 
-      const datosParaGrafico = usuarios.map((user) => ({
-        name: user.correo || 'Sin correo',
-        value: 1,
-      }));
+          setUsuariosTotales(usuariosArray.length);
 
-      setGraficoUsuarios(datosParaGrafico);
-      setLoading(false);
-    }, 1500);  // Simulación de tiempo de carga
+          // Crear los datos para el gráfico usando el campo "nombre" de cada usuario
+          const datosParaGrafico = usuariosArray.map((user) => ({
+            name: user.nombre || 'Sin nombre', // Usamos el nombre del usuario
+            value: 1,
+          }));
+
+          console.log("Datos para el gráfico:", datosParaGrafico); // Ver los datos para el gráfico
+
+          setGraficoUsuarios(datosParaGrafico);
+        } else {
+          console.log('No hay datos disponibles');
+        }
+      })
+      .catch((error) => {
+        console.error('Error al obtener los datos:', error);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   const theme = createTheme({
@@ -89,7 +107,7 @@ const Dashboard = () => {
                         cy="50%"
                         outerRadius={90}
                         dataKey="value"
-                        label={({ name }) => name}
+                        label={({ name }) => name} // Aquí mostramos el nombre del usuario
                       >
                         {graficoUsuarios.map((entry, index) => (
                           <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
