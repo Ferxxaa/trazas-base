@@ -4,6 +4,9 @@ import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
+// Importación del Navbar
+import Navbar from '../components/Navbar';  // Asegúrate de que la ruta sea correcta
+
 // Definimos los colores que usaremos
 const ITALIAN_RED = '#C62B27';  // Rojo italiano
 const LIGHT_GRAY = '#D3D3D3';  // Gris claro
@@ -55,6 +58,10 @@ const Dashboard = () => {
     <ThemeProvider theme={theme}>
       <Box sx={{ display: 'flex', minHeight: '100vh', flexDirection: 'column' }}>
         <CssBaseline />
+        
+        {/* Agregamos el Navbar */}
+        <Navbar />
+
         <Box component="main" sx={{ flex: 1, py: 6, px: 4, bgcolor: LIGHT_GRAY }}>
           <Container maxWidth="lg">
             <Grid container spacing={3}>
