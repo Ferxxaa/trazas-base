@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, Grid, Paper, Container, Box, CircularProgress, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle, Avatar } from '@mui/material';
+import { Typography, Grid, Paper, Container, Box, CircularProgress, TextField, Button, Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { PieChart, Pie, Cell, Legend, ResponsiveContainer } from 'recharts';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,8 +9,9 @@ import './Dashboard.css'; // Asegúrate de que la ruta es correcta
 import Navbar from '../components/Navbar';
 
 // Importar Firebase
-import { db } from '../firebase';
+import { db, auth } from '../firebase';
 import { ref, get, set, remove, update } from 'firebase/database';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const ITALIAN_RED = '#C62B27';  
 const LIGHT_GRAY = '#F4F6F9';  
@@ -23,7 +24,7 @@ const Dashboard = () => {
   const [usuariosTotales, setUsuariosTotales] = useState(0);
   const [graficoUsuarios, setGraficoUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [usuarioForm, setUsuarioForm] = useState({ nombre: '', apellido: '', correo: '' });
+  const [usuarioForm, setUsuarioForm] = useState({ nombre: '', apellido: '', correo: '', password: '', rut: '' });
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -53,6 +54,42 @@ const Dashboard = () => {
       });
   }, []);
 
+  // Método para registrar un nuevo usuario
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    if (!usuarioForm.password || !usuarioForm.nombre || !usuarioForm.apellido || !usuarioForm.rut) {
+      alert('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
+
+    try {
+      let userCredential;
+      if (usuarioForm.correo) {
+        userCredential = await createUserWithEmailAndPassword(auth, usuarioForm.correo, usuarioForm.password);
+      } else {
+        userCredential = await createUserWithEmailAndPassword(auth, 'default@domain.com', usuarioForm.password);
+      }
+
+      const user = userCredential.user;
+      const userRef = ref(db, 'usuarios/' + user.uid);
+      await set(userRef, {
+        nombre: usuarioForm.nombre,
+        apellido: usuarioForm.apellido,
+        rut: usuarioForm.rut,
+        correo: usuarioForm.correo || null,
+      });
+
+      alert('Usuario creado con éxito');
+      setIsDialogOpen(false);
+      setUsuarioForm({ nombre: '', apellido: '', correo: '', password: '', rut: '' });
+    } catch (error) {
+      console.error('Error al registrar usuario: ', error);
+      alert('Hubo un error al crear la cuenta');
+    }
+  };
+
+  // Método para agregar un usuario manualmente
   const handleAddUser = () => {
     const newUserId = Date.now().toString();
     set(ref(db, `usuarios/${newUserId}`), {
@@ -60,29 +97,34 @@ const Dashboard = () => {
       nombre: usuarioForm.nombre,
       apellido: usuarioForm.apellido,
       correo: usuarioForm.correo,
+      rut: usuarioForm.rut,
     })
       .then(() => {
         setIsDialogOpen(false);
-        setUsuarioForm({ nombre: '', apellido: '', correo: '' });
+        setUsuarioForm({ nombre: '', apellido: '', correo: '', password: '', rut: '' });
       })
       .catch((error) => console.error('Error al agregar usuario:', error));
   };
 
+  // Método para actualizar un usuario existente
   const handleUpdateUser = () => {
     if (!selectedUser) return;
+
     update(ref(db, `usuarios/${selectedUser.id}`), {
       nombre: usuarioForm.nombre,
       apellido: usuarioForm.apellido,
       correo: usuarioForm.correo,
+      rut: usuarioForm.rut,
     })
       .then(() => {
         setIsDialogOpen(false);
-        setUsuarioForm({ nombre: '', apellido: '', correo: '' });
+        setUsuarioForm({ nombre: '', apellido: '', correo: '', password: '', rut: '' });
         setSelectedUser(null);
       })
       .catch((error) => console.error('Error al actualizar usuario:', error));
   };
 
+  // Método para eliminar un usuario
   const handleDeleteUser = (userId) => {
     remove(ref(db, `usuarios/${userId}`))
       .then(() => {
@@ -109,6 +151,7 @@ const Dashboard = () => {
       .catch((error) => console.error('Error al eliminar usuario:', error));
   };
 
+  // Tema de la aplicación
   const theme = createTheme({
     palette: {
       primary: { main: ITALIAN_RED },
@@ -166,7 +209,7 @@ const Dashboard = () => {
                 </Paper>
               </Grid>
 
-              {/* Tabla de usuarios */}
+              {/* Lista de usuarios */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 3, bgcolor: 'white', boxShadow: 3 }}>
                   <Typography variant="h6" gutterBottom color="textSecondary">
@@ -184,19 +227,16 @@ const Dashboard = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {graficoUsuarios.map((user) => (
-                          <tr key={user.id}>
+                        {graficoUsuarios.map((user, index) => (
+                          <tr key={index}>
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.id}</td>
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.name}</td>
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.apellido}</td>
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.correo}</td>
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>
-                              <Button onClick={() => {
-                                setSelectedUser(user);
-                                setUsuarioForm({ nombre: user.name, apellido: user.apellido, correo: user.correo });
-                                setIsDialogOpen(true);
-                              }}>Modificar</Button>
-                              <Button color="error" onClick={() => handleDeleteUser(user.id)}>Eliminar</Button>
+                              <Button color="primary" onClick={() => handleDeleteUser(user.id)}>
+                                Eliminar
+                              </Button>
                             </td>
                           </tr>
                         ))}
@@ -208,44 +248,54 @@ const Dashboard = () => {
             </Grid>
           </Container>
         </Box>
-      </Box>
 
-      {/* Dialog para agregar/modificar usuarios */}
-      <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
-        <DialogTitle>{selectedUser ? 'Modificar Usuario' : 'Agregar Usuario'}</DialogTitle>
-        <DialogContent>
-          <TextField
-            label="Nombre"
-            fullWidth
-            value={usuarioForm.nombre}
-            onChange={(e) => setUsuarioForm({ ...usuarioForm, nombre: e.target.value })}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Apellido"
-            fullWidth
-            value={usuarioForm.apellido}
-            onChange={(e) => setUsuarioForm({ ...usuarioForm, apellido: e.target.value })}
-            sx={{ mb: 2 }}
-          />
-          <TextField
-            label="Correo"
-            fullWidth
-            value={usuarioForm.correo}
-            onChange={(e) => setUsuarioForm({ ...usuarioForm, correo: e.target.value })}
-            sx={{ mb: 2 }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setIsDialogOpen(false)} color="secondary">Cancelar</Button>
-          <Button
-            onClick={selectedUser ? handleUpdateUser : handleAddUser}
-            color="primary"
-          >
-            {selectedUser ? 'Actualizar' : 'Agregar'}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        {/* Diálogo de creación de usuario */}
+        <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
+          <DialogTitle>Crear Usuario</DialogTitle>
+          <DialogContent>
+            <TextField
+              label="Nombre"
+              fullWidth
+              value={usuarioForm.nombre}
+              onChange={(e) => setUsuarioForm({ ...usuarioForm, nombre: e.target.value })}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Apellido"
+              fullWidth
+              value={usuarioForm.apellido}
+              onChange={(e) => setUsuarioForm({ ...usuarioForm, apellido: e.target.value })}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Correo Electrónico"
+              fullWidth
+              value={usuarioForm.correo}
+              onChange={(e) => setUsuarioForm({ ...usuarioForm, correo: e.target.value })}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="RUT"
+              fullWidth
+              value={usuarioForm.rut}
+              onChange={(e) => setUsuarioForm({ ...usuarioForm, rut: e.target.value })}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Contraseña"
+              fullWidth
+              type="password"
+              value={usuarioForm.password}
+              onChange={(e) => setUsuarioForm({ ...usuarioForm, password: e.target.value })}
+              sx={{ mb: 2 }}
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setIsDialogOpen(false)}>Cancelar</Button>
+            <Button onClick={handleRegister}>Crear</Button>
+          </DialogActions>
+        </Dialog>
+      </Box>
     </ThemeProvider>
   );
 };

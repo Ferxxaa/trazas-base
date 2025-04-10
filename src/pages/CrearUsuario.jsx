@@ -11,13 +11,26 @@ const CrearUsuario = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [rut, setRut] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Verificar que los campos obligatorios estén completos (excluyendo el correo)
+    // Verificar que los campos obligatorios estén completos
     if (!password || !firstName || !lastName || !rut) {
-      alert('Por favor, complete todos los campos obligatorios.');
+      setErrorMessage('Por favor, complete todos los campos obligatorios.');
+      return;
+    }
+
+    // Verificar si el correo es válido, si se proporciona
+    if (email && !/\S+@\S+\.\S+/.test(email)) {
+      setErrorMessage('El correo electrónico no es válido.');
+      return;
+    }
+
+    // Verificar la longitud de la contraseña
+    if (password.length < 6) {
+      setErrorMessage('La contraseña debe tener al menos 6 caracteres.');
       return;
     }
 
@@ -28,7 +41,7 @@ const CrearUsuario = () => {
       if (email) {
         userCredential = await createUserWithEmailAndPassword(auth, email, password);
       } else {
-        // Si el correo no está proporcionado, usamos solo la contraseña (esto es poco común, pero aquí lo dejamos para tu caso)
+        // Si el correo no está proporcionado, usamos solo la contraseña (esto es poco común)
         userCredential = await createUserWithEmailAndPassword(auth, 'default@domain.com', password); // Correo predeterminado
       }
 
@@ -44,9 +57,20 @@ const CrearUsuario = () => {
       });
 
       alert('Usuario creado con éxito');
+      setErrorMessage(''); // Limpiar mensaje de error al crear el usuario
     } catch (error) {
       console.error('Error al registrar usuario: ', error);
-      alert('Hubo un error al crear la cuenta');
+
+      // Mostrar errores específicos según el código del error de Firebase
+      if (error.code === 'auth/email-already-in-use') {
+        setErrorMessage('El correo electrónico ya está en uso.');
+      } else if (error.code === 'auth/invalid-email') {
+        setErrorMessage('El correo electrónico es inválido.');
+      } else if (error.code === 'auth/weak-password') {
+        setErrorMessage('La contraseña debe tener al menos 6 caracteres.');
+      } else {
+        setErrorMessage('Hubo un error al crear la cuenta. Intenta de nuevo más tarde.');
+      }
     }
   };
 
@@ -55,6 +79,7 @@ const CrearUsuario = () => {
       <div className="login-card">
         <h2>Crear Usuario</h2>
         <form onSubmit={handleRegister}>
+          {errorMessage && <p className="error-message">{errorMessage}</p>} {/* Mostrar mensaje de error si existe */}
           <input
             type="text"
             placeholder="Nombre"
