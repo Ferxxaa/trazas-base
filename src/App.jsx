@@ -16,6 +16,8 @@ import RecursosHumanosPage from './pages/RecursosHumanosPage';
 import HechosRelevantesPage from './pages/HechosRelevantesPage';
 import PoliticaPage from './pages/PoliticaPage';
 import ObjetivosPage from './pages/ObjetivosPage';
+import RolesYResponsabilidadesPage from './pages/RolesYResponsabilidadesPage';
+import ReglamentoPage from './pages/ReglamentoPage';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -49,6 +51,8 @@ const App = () => {
         <Route path="/hechos-relevantes" element={<HechosRelevantesPage />} />
         <Route path="/politica" element={<PoliticaPage />} />
         <Route path="/objetivos" element={<ObjetivosPage />} />
+        <Route path="/roles-y-responsabilidades" element={<RolesYResponsabilidadesPage />} />  {/* Ruta para RolesYResponsabilidadesPage */}
+        <Route path="/reglamento" element={<ReglamentoPage />} />  {/* Ruta para ReglamentoPage */}
       </Routes>
     </Router>
   );
