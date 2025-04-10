@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Row, Col, Image, Button, Card } from 'react-bootstrap';
+import { Link } from 'react-router-dom';  // Importando Link de react-router-dom
 import Navbar from '../components/Navbar';  // Asegurando que el Navbar se muestre
 
 const ComitePage = () => {
@@ -13,24 +14,58 @@ const ComitePage = () => {
             Comité de Consulta y Participación
           </h1>
 
-          {/* Botones para navegar a diferentes secciones */}
+          {/* Botones para navegar a diferentes páginas */}
           <div className="text-center mb-5">
-            <Button
-              variant="outline-danger"
-              size="lg"
-              href="#politica"
-              className="mx-3"
-            >
-              Política de Seguridad
-            </Button>
-            <Button
-              variant="outline-danger"
-              size="lg"
-              href="#objetivos"
-              className="mx-3"
-            >
-              Objetivos
-            </Button>
+            <Link to="/politica">
+              <Button
+                variant="danger"
+                size="lg"
+                className="mx-3 mb-3 mb-sm-0"
+                style={{
+                  backgroundColor: '#c62828',
+                  border: '2px solid #c62828',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  padding: '15px 30px',
+                  transition: 'background-color 0.3s, border-color 0.3s',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#e57373';
+                  e.target.style.borderColor = '#e57373';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = '#c62828';
+                  e.target.style.borderColor = '#c62828';
+                }}
+              >
+                Política de Seguridad
+              </Button>
+            </Link>
+            <Link to="/objetivos">
+              <Button
+                variant="danger"
+                size="lg"
+                className="mx-3 mb-3 mb-sm-0"
+                style={{
+                  backgroundColor: '#c62828',
+                  border: '2px solid #c62828',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  padding: '15px 30px',
+                  transition: 'background-color 0.3s, border-color 0.3s',
+                }}
+                onMouseEnter={(e) => {
+                  e.target.style.backgroundColor = '#e57373';
+                  e.target.style.borderColor = '#e57373';
+                }}
+                onMouseLeave={(e) => {
+                  e.target.style.backgroundColor = '#c62828';
+                  e.target.style.borderColor = '#c62828';
+                }}
+              >
+                Objetivos
+              </Button>
+            </Link>
           </div>
 
           {/* Sección Comité */}
@@ -63,38 +98,6 @@ const ComitePage = () => {
                   <Col md={10}>
                     <p className="fs-5 text-justify">
                       “Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participación, en un proceso previo, anterior a la toma de decisiones, referente a políticas y situaciones relevantes en Matriz de Seguridad y Salud Ocupacional”.
-                    </p>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          </section>
-
-          {/* Sección Política */}
-          <section id="politica" className="my-5">
-            <Card className="mb-5">
-              <Card.Body>
-                <Card.Title className="text-center" style={{ color: '#c62828' }}>Política </Card.Title>
-                <Row className="justify-content-center">
-                  <Col md={10}>
-                    <p className="fs-5 text-justify">
-                      La política de seguridad y salud ocupa un rol fundamental en la gestión preventiva de riesgos laborales, asegurando que todos los trabajadores estén protegidos bajo las normativas vigentes y las mejores prácticas.
-                    </p>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          </section>
-
-          {/* Sección Objetivos */}
-          <section id="objetivos" className="my-5">
-            <Card className="mb-5">
-              <Card.Body>
-                <Card.Title className="text-center" style={{ color: '#c62828' }}>Objetivos del Comité</Card.Title>
-                <Row className="justify-content-center">
-                  <Col md={10}>
-                    <p className="fs-5 text-justify">
-                      El Comité tiene como objetivo principal promover la participación activa de los trabajadores, evaluar y proponer mejoras en los procesos de seguridad y salud laboral, y ser un canal de comunicación entre la dirección y el personal.
                     </p>
                   </Col>
                 </Row>

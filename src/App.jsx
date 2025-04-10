@@ -14,7 +14,8 @@ import { auth } from './firebase'; // Asegúrate de importar la autenticación d
 import ComitePage from './pages/ComitePage';
 import RecursosHumanosPage from './pages/RecursosHumanosPage';
 import HechosRelevantesPage from './pages/HechosRelevantesPage';
-
+import PoliticaPage from './pages/PoliticaPage';
+import ObjetivosPage from './pages/ObjetivosPage';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -46,6 +47,8 @@ const App = () => {
         <Route path="/comite" element={<ComitePage />} />
         <Route path="/recursos-humanos" element={<RecursosHumanosPage />} />
         <Route path="/hechos-relevantes" element={<HechosRelevantesPage />} />
+        <Route path="/politica" element={<PoliticaPage />} />
+        <Route path="/objetivos" element={<ObjetivosPage />} />
       </Routes>
     </Router>
   );
