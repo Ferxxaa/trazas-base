@@ -166,9 +166,6 @@ const Dashboard = () => {
                 </Paper>
               </Grid>
 
-              {/* Panel a la derecha para agregar logo */}
-              
-
               {/* Tabla de usuarios */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 3, bgcolor: 'white', boxShadow: 3 }}>

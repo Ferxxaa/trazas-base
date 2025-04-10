@@ -1,23 +1,47 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Carousel, Card, Button, Container, Row, Col } from 'react-bootstrap';
 import { FaHardHat, FaTools, FaBuilding } from 'react-icons/fa';
-import { Box } from '@mui/material';  // Asegúrate de importar Box
+import { Box } from '@mui/material';
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const cardData = [
+    {
+      icon: <FaBuilding />,
+      title: 'Comite de Consulta y Participacíon',
+      text: 'Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participacion.',
+      route: '/comite'
+    },
+    {
+      icon: <FaHardHat />,
+      title: 'Recursos Humanos y Administración',
+      text: 'Puedes Comunicarte con nosotros, estamos atentos a recibir sus consultas, Recuerda que todos los mensajes son confidenciales.',
+      route: '/recursos-humanos'
+    },
+    {
+      icon: <FaTools />,
+      title: 'Hechos Relevantes',
+      text: 'Una breve descripción de la tercera card. Descubre todas nuestras novedades.',
+      route: '/hechos-relevantes'
+    }
+  ];
+
   return (
-    <Box pt={10} style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}> {/* Añadido Box con padding-top */}
-      {/* Carrusel full width */}
+    <Box pt={10} style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+      {/* Carrusel */}
       <Carousel fade interval={5000}>
         <Carousel.Item>
           <img
             className="d-block w-100"
-            src="/images/carrusel2.png"
+            src="/images/ArqIng-B.png"
             alt="First slide"
             style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
           <Carousel.Caption>
-            <h3 style={{ color: '#f5f5f5' }}>Bienvenido a nuestra empresa</h3>
-            <p style={{ color: '#eeeeee' }}>Descubre más sobre nosotros y nuestros productos</p>
+            <h3 style={{ color: '#f5f5f5' }}></h3>
+            <p style={{ color: '#eeeeee' }}></p>
           </Carousel.Caption>
         </Carousel.Item>
 
@@ -29,8 +53,8 @@ const Home = () => {
             style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
           <Carousel.Caption>
-            <h3 style={{ color: '#f5f5f5' }}>Innovación y calidad</h3>
-            <p style={{ color: '#eeeeee' }}>Siempre a la vanguardia con productos de alta calidad.</p>
+            <h3 style={{ color: '#f5f5f5' }}></h3>
+            <p style={{ color: '#eeeeee' }}></p>
           </Carousel.Caption>
         </Carousel.Item>
 
@@ -42,28 +66,17 @@ const Home = () => {
             style={{ maxHeight: '500px', objectFit: 'cover' }}
           />
           <Carousel.Caption>
-            <h3 style={{ color: '#f5f5f5' }}>Compromiso con nuestros clientes</h3>
-            <p style={{ color: '#eeeeee' }}>Tu satisfacción es nuestra prioridad.</p>
+            <h3 style={{ color: '#f5f5f5' }}></h3>
+            <p style={{ color: '#eeeeee' }}></p>
           </Carousel.Caption>
         </Carousel.Item>
       </Carousel>
 
-      {/* Cards debajo del carrusel */}
+
+      {/* Cards */}
       <Container fluid className="py-5 px-4">
         <Row className="justify-content-center">
-          {[{
-            icon: <FaBuilding />,
-            title: 'Construcción de Edificaciones',
-            text: 'Una breve descripción de la primera card. Conozca más sobre nuestros servicios y productos.'
-          }, {
-            icon: <FaHardHat />,
-            title: 'Proyectos Industriales',
-            text: 'Una breve descripción de la segunda card. ¡No te pierdas nuestras ofertas!'
-          }, {
-            icon: <FaTools />,
-            title: 'Reformas y Remodelaciones',
-            text: 'Una breve descripción de la tercera card. Descubre todas nuestras novedades.'
-          }].map((item, index) => (
+          {cardData.map((item, index) => (
             <Col key={index} md={4} sm={6} className="d-flex align-items-stretch mb-4">
               <Card className="w-100 shadow-sm" style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
                 <Card.Img variant="top" src="https://via.placeholder.com/400x200" />
@@ -72,7 +85,13 @@ const Home = () => {
                     {item.icon} <span style={{ marginLeft: '10px' }}>{item.title}</span>
                   </Card.Title>
                   <Card.Text style={{ color: '#424242', flexGrow: 1 }}>{item.text}</Card.Text>
-                  <Button variant="danger" className="mt-3 align-self-start">Ver más</Button>
+                  <Button
+                    variant="danger"
+                    className="mt-3 align-self-start"
+                    onClick={() => navigate(item.route)}
+                  >
+                    Ver más
+                  </Button>
                 </Card.Body>
               </Card>
             </Col>

@@ -11,6 +11,10 @@ import ForoTrabajadores from './pages/ForoTrabajadores';
 import AdminDashboard from './pages/AdminDashboard'; 
 import AdminRoute from './components/AdminRoute'; 
 import { auth } from './firebase'; // Asegúrate de importar la autenticación de Firebase
+import ComitePage from './pages/ComitePage';
+import RecursosHumanosPage from './pages/RecursosHumanosPage';
+import HechosRelevantesPage from './pages/HechosRelevantesPage';
+
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -39,6 +43,9 @@ const App = () => {
           path="/admin"
           element={<AdminRoute element={<AdminDashboard />} user={user} />}
         />
+        <Route path="/comite" element={<ComitePage />} />
+        <Route path="/recursos-humanos" element={<RecursosHumanosPage />} />
+        <Route path="/hechos-relevantes" element={<HechosRelevantesPage />} />
       </Routes>
     </Router>
   );
