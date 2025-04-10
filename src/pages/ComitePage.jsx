@@ -1,78 +1,90 @@
 import React from 'react';
-import { Container, Row, Col, Image, Button, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';  // Importando Link de react-router-dom
-import Navbar from '../components/Navbar';  // Asegurando que el Navbar se muestre
+import { Container, Row, Col, Image, Button, Card, Carousel } from 'react-bootstrap';
+import { Link } from 'react-router-dom'; // Importando Link de react-router-dom
+import Navbar from '../components/Navbar'; // Asegurando que el Navbar se muestre
 
 const ComitePage = () => {
   return (
     <>
       <Navbar /> {/* Asegurando que el Navbar se muestre */}
 
-      <div style={{ paddingTop: '90px' }}> {/* Para evitar que el navbar tape el contenido */}
+      <div style={{ 
+        paddingTop: '90px',  // Para evitar que el navbar tape el contenido
+        backgroundImage: 'url(/images/marmol3.jpg)',  // Ruta de la imagen de fondo
+        backgroundSize: 'cover',  // Hace que la imagen cubra toda la pantalla
+        backgroundPosition: 'center',  // Centra la imagen
+        minHeight: '100vh',  // Asegura que el fondo cubra toda la altura de la pantalla
+      }}>
         <Container className="py-5">
+          
+          {/* Carousel para los botones deslizable */}
+          <Carousel indicators={false} controls={false} interval={null} className="mb-5">
+            <Carousel.Item>
+              <div className="text-center mb-5">
+                <Link to="/politica">
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    className="mx-3 mb-3 mb-sm-0"
+                    style={{
+                      backgroundColor: '#c62828',
+                      border: '2px solid #c62828',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      padding: '10px 20px', // Haciendo los botones más pequeños
+                      transition: 'background-color 0.3s, border-color 0.3s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#e57373';
+                      e.target.style.borderColor = '#e57373';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = '#c62828';
+                      e.target.style.borderColor = '#c62828';
+                    }}
+                  >
+                    Política de Seguridad
+                  </Button>
+                </Link>
+                <Link to="/objetivos">
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    className="mx-3 mb-3 mb-sm-0"
+                    style={{
+                      backgroundColor: '#c62828',
+                      border: '2px solid #c62828',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      padding: '10px 20px', // Haciendo los botones más pequeños
+                      transition: 'background-color 0.3s, border-color 0.3s',
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#e57373';
+                      e.target.style.borderColor = '#e57373';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = '#c62828';
+                      e.target.style.borderColor = '#c62828';
+                    }}
+                  >
+                    Objetivos
+                  </Button>
+                </Link>
+              </div>
+            </Carousel.Item>
+          </Carousel>
+
+          {/* Título de la página */}
           <h1 className="text-center mb-5" style={{ color: '#c62828' }}>
             Comité de Consulta y Participación
           </h1>
-
-          {/* Botones para navegar a diferentes páginas */}
-          <div className="text-center mb-5">
-            <Link to="/politica">
-              <Button
-                variant="danger"
-                size="lg"
-                className="mx-3 mb-3 mb-sm-0"
-                style={{
-                  backgroundColor: '#c62828',
-                  border: '2px solid #c62828',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  padding: '15px 30px',
-                  transition: 'background-color 0.3s, border-color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#e57373';
-                  e.target.style.borderColor = '#e57373';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#c62828';
-                  e.target.style.borderColor = '#c62828';
-                }}
-              >
-                Política de Seguridad
-              </Button>
-            </Link>
-            <Link to="/objetivos">
-              <Button
-                variant="danger"
-                size="lg"
-                className="mx-3 mb-3 mb-sm-0"
-                style={{
-                  backgroundColor: '#c62828',
-                  border: '2px solid #c62828',
-                  color: 'white',
-                  fontWeight: 'bold',
-                  padding: '15px 30px',
-                  transition: 'background-color 0.3s, border-color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#e57373';
-                  e.target.style.borderColor = '#e57373';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = '#c62828';
-                  e.target.style.borderColor = '#c62828';
-                }}
-              >
-                Objetivos
-              </Button>
-            </Link>
-          </div>
 
           {/* Sección Comité */}
           <section id="comite">
             <Card className="mb-5">
               <Card.Body>
-                <Card.Title className="text-center" style={{ color: '#c62828' }}>Comité de Consulta y Participación</Card.Title>
+                <Card.Title className="text-center" style={{ color: '#c62828' }}></Card.Title>
                 <Row className="justify-content-center mb-5">
                   {[{ nombre: 'Randall Ortega', img: '/images/Randall.png' },
                     { nombre: 'Luis Puente', img: '/images/Puente.png' },

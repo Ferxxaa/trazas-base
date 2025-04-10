@@ -29,7 +29,12 @@ const Home = () => {
   ];
 
   return (
-    <Box pt={10} style={{ backgroundColor: '#f5f5f5', minHeight: '100vh' }}>
+    <Box pt={10} style={{ 
+        backgroundImage: 'url(/images/marmol3.jpg)',  // Ruta de la imagen de fondo
+        backgroundSize: 'cover',  // Hace que la imagen cubra toda la pantalla
+        backgroundPosition: 'center',  // Centra la imagen
+        minHeight: '100vh',  // Asegura que el fondo cubra toda la altura de la pantalla
+    }}>
       {/* Carrusel */}
       <Carousel fade interval={5000}>
         <Carousel.Item>
@@ -72,13 +77,12 @@ const Home = () => {
         </Carousel.Item>
       </Carousel>
 
-
       {/* Cards */}
       <Container fluid className="py-5 px-4">
         <Row className="justify-content-center">
           {cardData.map((item, index) => (
             <Col key={index} md={4} sm={6} className="d-flex align-items-stretch mb-4">
-              <Card className="w-100 shadow-sm" style={{ backgroundColor: '#ffffff', border: '1px solid #ddd' }}>
+              <Card className="w-100 shadow-sm" style={{ backgroundColor: '#ffffff', border: '1px solid #d7a77e', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}> {/* Relieve café claro */}
                 <Card.Img variant="top" src="https://via.placeholder.com/400x200" />
                 <Card.Body className="d-flex flex-column">
                   <Card.Title style={{ color: '#e60000' }}>

@@ -8,17 +8,26 @@ const PoliticaPage = () => {
     <>
       <Navbar /> {/* Asegurando que el Navbar se muestre */}
 
-      <div style={{ paddingTop: '90px', backgroundColor: '#f8f9fa' }}> {/* Fondo claro y márgenes */}
+      <div
+        style={{
+          paddingTop: '90px',
+          backgroundImage: 'url("/images/marmol3.jpg")',  // Ruta de la imagen de fondo
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundAttachment: 'fixed',
+          backgroundColor: '#f8f9fa', // Color de fondo de reserva
+        }}
+      >
         <Container className="py-5">
-          {/* Botón para regresar al Comité */}
+          {/* Botones para regresar al Comité, uno al lado del otro y pequeños */}
           <div className="text-center mb-5">
             <Link to="/comite">
               <button
-                className="btn btn-outline-danger mx-3 mb-3 mb-sm-0"
+                className="btn btn-outline-danger mx-1"
                 style={{
-                  padding: '12px 30px',
+                  padding: '8px 20px', // Botones más pequeños
                   fontWeight: 'bold',
-                  fontSize: '1.1rem',
+                  fontSize: '0.9rem', // Tamaño de fuente reducido
                   transition: 'background-color 0.3s, border-color 0.3s',
                 }}
                 onMouseEnter={(e) => {
