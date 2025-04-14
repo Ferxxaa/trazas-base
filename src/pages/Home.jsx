@@ -143,50 +143,49 @@ const Home = () => {
   </Row>
 </Container>
 
-      {/* Noticias */}
-      <Container fluid className="py-5 px-4" style={{ backgroundColor: '#f1f1f1' }}>
-        <Row className="justify-content-center">
-          <Col md={12} className="text-center mb-4">
-            <h2 style={{ fontWeight: 600 }}>
-              Infórmate Aquí <FaChevronDown style={{ marginLeft: '8px' }} />
-            </h2>
-          </Col>
-          {newsData.map((news, index) => (
-            <Col key={index} md={4} sm={6} className="d-flex align-items-stretch mb-4">
-              <div className="w-100 shadow-sm" style={{
-                backgroundColor: '#ffffff',
-                border: '1px solid #d7a77e',
-                padding: '20px',
-                borderRadius: '10px'
-              }}>
-                <img src={news.imgSrc} alt={news.title} className="img-fluid mb-3" style={{ borderRadius: '8px' }} />
-                <h5 style={{ color: '#e60000' }}>{news.title}</h5>
-                <p style={{ color: '#080000' }}>{news.description}</p>
-                {news.details ? (
-                  <>
-                    <Button
-                      variant="danger"
-                      className="mt-2"
-                      onClick={handleAccordionToggle}
-                    >
-                      {expanded ? 'Ver menos' : 'Leer más'}
-                    </Button>
-                    {expanded && news.details}
-                  </>
-                ) : (
-                  <Button
-                    variant="danger"
-                    className="mt-2"
-                    onClick={() => navigate(news.route)}
-                  >
-                    Leer más
-                  </Button>
-                )}
-              </div>
-            </Col>
-          ))}
-        </Row>
-      </Container>
+      
+      {/* Foro de Publicaciones */}
+<Container className="py-5 px-4">
+  <Row>
+    <Col md={12} className="text-center mb-4">
+      <h2 style={{ fontWeight: 600 }}>Foro del Administrador</h2>
+      <p>Publicaciones hechas por el administrador. Los usuarios pueden dejar comentarios.</p>
+    </Col>
+
+    {/* Simulación de un post del admin */}
+    <Col md={8} className="mx-auto">
+      <div style={{
+        backgroundColor: '#fff',
+        border: '1px solid #ccc',
+        borderRadius: '10px',
+        padding: '20px',
+        marginBottom: '20px'
+      }}>
+        <h5>🔔 Nueva política de seguridad</h5>
+        <p>Estamos implementando nuevas medidas de seguridad en el área de trabajo. Por favor, revisa el documento adjunto y deja tus comentarios.</p>
+        
+        {/* Comentarios */}
+        <div style={{ marginTop: '20px' }}>
+          <h6>Comentarios:</h6>
+          <ul>
+            <li>Usuario1: Me parece excelente medida.</li>
+            <li>Usuario2: ¿Cuándo comienza a aplicarse?</li>
+          </ul>
+          
+          {/* Agregar nuevo comentario */}
+          <form>
+            <textarea
+              placeholder="Escribe tu comentario..."
+              className="form-control mb-2"
+              rows="3"
+            />
+            <Button variant="dark">Comentar</Button>
+          </form>
+        </div>
+      </div>
+    </Col>
+  </Row>
+</Container>
     </Box>
   );
 };

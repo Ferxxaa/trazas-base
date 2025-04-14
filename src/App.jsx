@@ -53,6 +53,7 @@ const App = () => {
         <Route path="/objetivos" element={<ObjetivosPage />} />
         <Route path="/roles-y-responsabilidades" element={<RolesYResponsabilidadesPage />} />  {/* Ruta para RolesYResponsabilidadesPage */}
         <Route path="/reglamento" element={<ReglamentoPage />} />  {/* Ruta para ReglamentoPage */}
+        
       </Routes>
     </Router>
   );
