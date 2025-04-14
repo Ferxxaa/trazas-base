@@ -6,6 +6,25 @@ import { Container, Row, Col, Button, Card } from 'react-bootstrap';
 const RecursosHumanosPage = () => {
   const navigate = useNavigate();
 
+  // Estilo del botón
+  const btnStyle = {
+    fontSize: '0.8rem',  // Reducir el tamaño de la fuente
+    padding: '8px 16px',  // Reducir el padding
+    backgroundColor: '#b32400',  // Fondo rojo oscuro
+    border: '2px solid #b32400',  // Borde de color rojo oscuro
+    borderRadius: '10px',  // Borde redondeado
+    textAlign: 'center',  // Alinear el texto al centro
+    color: 'white',  // Color del texto
+    fontWeight: 'bold',  // Hacer el texto en negrita
+    transition: 'background-color 0.3s, border-color 0.3s',  // Transición suave
+  };
+
+  // Función para el hover
+  const hoverBtn = (e, enter) => {
+    e.target.style.backgroundColor = enter ? '#e57373' : '#b32400';
+    e.target.style.borderColor = enter ? '#e57373' : '#b32400';
+  };
+
   return (
     <div>
       {/* Agregar el Navbar aquí */}
@@ -29,6 +48,9 @@ const RecursosHumanosPage = () => {
               size="sm"  // Botón más pequeño
               block
               onClick={() => navigate('/')}  // Regresar al inicio
+              onMouseEnter={(e) => hoverBtn(e, true)} 
+              onMouseLeave={(e) => hoverBtn(e, false)}
+              style={btnStyle}
             >
               🏠 Regresar al Inicio
             </Button>
@@ -39,6 +61,9 @@ const RecursosHumanosPage = () => {
               size="sm"  // Botón más pequeño
               block
               onClick={() => navigate('/roles-y-responsabilidades')}  // Volver a Roles y Responsabilidades
+              onMouseEnter={(e) => hoverBtn(e, true)} 
+              onMouseLeave={(e) => hoverBtn(e, false)}
+              style={btnStyle}
             >
               📋 Roles y Responsabilidades
             </Button>
@@ -49,13 +74,14 @@ const RecursosHumanosPage = () => {
               size="sm"  // Botón más pequeño
               block
               onClick={() => navigate('/reglamento')}  // Volver al Reglamento
+              onMouseEnter={(e) => hoverBtn(e, true)} 
+              onMouseLeave={(e) => hoverBtn(e, false)}
+              style={btnStyle}
             >
               📜 Reglamento
             </Button>
           </Col>
         </Row>
-
-        
 
         <Container className="py-5">
           {/* Título principal */}
@@ -96,22 +122,6 @@ const RecursosHumanosPage = () => {
       </div>
     </div>
   );
-};
-
-// Estilo del botón
-const btnStyle = {
-  backgroundColor: '#c62828',
-  border: '2px solid #c62828',
-  color: 'white',
-  fontWeight: 'bold',
-  padding: '6px 12px',  // Reducido el padding para hacerlo más pequeño
-  transition: 'background-color 0.3s, border-color 0.3s',
-};
-
-// Función para hover
-const hoverBtn = (e, enter) => {
-  e.target.style.backgroundColor = enter ? '#e57373' : '#c62828';
-  e.target.style.borderColor = enter ? '#e57373' : '#c62828';
 };
 
 export default RecursosHumanosPage;

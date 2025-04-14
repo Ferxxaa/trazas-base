@@ -1,4 +1,3 @@
-// src/pages/ReglamentoPage.jsx
 import React, { useState } from 'react';
 import { Container, Row, Col, Button, Card, Modal, Accordion } from 'react-bootstrap';
 import Navbar from '../components/Navbar';
@@ -87,6 +86,25 @@ const ReglamentoPage = () => {
     },
   ];
 
+  // Estilo del botón
+  const btnStyle = {
+    fontSize: '0.8rem',  // Reducir el tamaño de la fuente
+    padding: '8px 16px',  // Reducir el padding
+    backgroundColor: '#b32400',  // Fondo rojo oscuro
+    border: '2px solid #b32400',  // Borde de color rojo oscuro
+    borderRadius: '10px',  // Borde redondeado
+    textAlign: 'center',  // Alinear el texto al centro
+    color: 'white',  // Color del texto
+    fontWeight: 'bold',  // Hacer el texto en negrita
+    transition: 'background-color 0.3s, border-color 0.3s',  // Transición suave
+  };
+
+  // Función para hover
+  const hoverBtn = (e, enter) => {
+    e.target.style.backgroundColor = enter ? '#e57373' : '#b32400';
+    e.target.style.borderColor = enter ? '#e57373' : '#b32400';
+  };
+
   return (
     <div>
       <Navbar />
@@ -108,6 +126,9 @@ const ReglamentoPage = () => {
               size="sm" // Botón más pequeño
               block
               onClick={() => navigate('/')} // Regresar al inicio
+              onMouseEnter={(e) => hoverBtn(e, true)} 
+              onMouseLeave={(e) => hoverBtn(e, false)}
+              style={btnStyle}
             >
               🏠 Regresar al Inicio
             </Button>
@@ -118,8 +139,11 @@ const ReglamentoPage = () => {
               size="sm" // Botón más pequeño
               block
               onClick={() => navigate('/reglamento')} // Regresar a Recursos Humanos
+              onMouseEnter={(e) => hoverBtn(e, true)} 
+              onMouseLeave={(e) => hoverBtn(e, false)}
+              style={btnStyle}
             >
-              📋 Volver a Reglameto
+              📋 Ir a Reglameto
             </Button>
           </Col>
           <Col md={3} className="mb-3">
@@ -128,6 +152,9 @@ const ReglamentoPage = () => {
               size="sm" // Botón más pequeño
               block
               onClick={() => navigate('/recursos-humanos')} // Volver a Roles y Responsabilidades
+              onMouseEnter={(e) => hoverBtn(e, true)} 
+              onMouseLeave={(e) => hoverBtn(e, false)}
+              style={btnStyle}
             >
               👥 Volver a Recursos Humanos
             </Button>

@@ -24,38 +24,55 @@ const PoliticaPage = () => {
       >
         <Container className="py-5">
           {/* Botones de navegación arriba */}
-          <Row className="justify-content-center mt-3">
-            <Col md={3} className="mb-3">
-              <Button
-                variant="secondary"
-                size="sm"
-                block
-                onClick={() => navigate('/')} // Regresar al inicio
-              >
-                🏡 Inicio
-              </Button>
-            </Col>
-            <Col md={3} className="mb-3">
-              <Button
-                variant="danger"
-                size="sm"
-                block
-                onClick={() => navigate('/comite')} // Ir a Política
-              >
-                🧑‍🧒‍🧒 Comite
-              </Button>
-            </Col>
-            <Col md={3} className="mb-3">
-              <Button
-                variant="info"
-                size="sm"
-                block
-                onClick={() => navigate('/objetivos')} // Ir a Objetivos
-              >
-                🎯 Objetivos
-              </Button>
-            </Col>
-          </Row>
+          
+          {/* Botones de navegación arriba */}
+                  <div className="text-center mb-5">
+                    <Row className="justify-content-center mt-3">
+                      <Col md={3} className="mb-3">
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          block
+                          onClick={() => navigate('/')} // Regresar al inicio
+                          onMouseEnter={(e) => hoverBtn(e, true)} 
+                          onMouseLeave={(e) => hoverBtn(e, false)}
+                          style={btnStyle}
+                        >
+                          🏡 Inicio
+                        </Button>
+                      </Col>
+                      {currentPath !== '/comite' && (
+                        <Col md={3} className="mb-3">
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            block
+                            onClick={() => navigate('/comite')} // Ir a Comité
+                            onMouseEnter={(e) => hoverBtn(e, true)} 
+                            onMouseLeave={(e) => hoverBtn(e, false)}
+                            style={btnStyle}
+                          >
+                            🧑‍🧒‍🧒 Comité
+                          </Button>
+                        </Col>
+                      )}
+                      {currentPath !== '/objetivos' && (
+                        <Col md={3} className="mb-3">
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            block
+                            onClick={() => navigate('/objetivos')} // Ir a Política de Seguridad
+                            onMouseEnter={(e) => hoverBtn(e, true)} 
+                            onMouseLeave={(e) => hoverBtn(e, false)}
+                            style={btnStyle}
+                          >
+                            🎯 Objetivos
+                          </Button>
+                        </Col>
+                      )}
+                    </Row>
+                  </div>
 
           <h1 className="text-center mb-5" style={{ color: '#c62828', fontFamily: 'Arial, sans-serif' }}>
             Política de Seguridad
