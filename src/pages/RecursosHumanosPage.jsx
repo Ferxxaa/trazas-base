@@ -1,4 +1,3 @@
-// src/pages/RecursosHumanosPage.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';  // Asegúrate de que la ruta sea correcta
@@ -22,27 +21,41 @@ const RecursosHumanosPage = () => {
           minHeight: '100vh',  // Asegura que el fondo cubra toda la altura de la pantalla
         }}
       >
-        {/* Botones para roles y reglamento */}
-        <Row className="justify-content-center">
-          <Col md={6} className="text-center">
+        {/* Botones de navegación arriba */}
+        <Row className="justify-content-center mt-3">
+          <Col md={3} className="mb-3">
             <Button
-              variant="danger"
-              size="lg"
-              className="m-3"
-              onClick={() => navigate('/roles-y-responsabilidades')}
+              variant="secondary"
+              size="sm"  // Botón más pequeño
+              block
+              onClick={() => navigate('/')}  // Regresar al inicio
             >
-              Roles y Responsabilidades
+              🏠 Regresar al Inicio
             </Button>
+          </Col>
+          <Col md={3} className="mb-3">
             <Button
               variant="danger"
-              size="lg"
-              className="m-3"
-              onClick={() => navigate('/reglamento')}
+              size="sm"  // Botón más pequeño
+              block
+              onClick={() => navigate('/roles-y-responsabilidades')}  // Volver a Roles y Responsabilidades
             >
-              Reglamento
+              📋 Roles y Responsabilidades
+            </Button>
+          </Col>
+          <Col md={3} className="mb-3">
+            <Button
+              variant="info"
+              size="sm"  // Botón más pequeño
+              block
+              onClick={() => navigate('/reglamento')}  // Volver al Reglamento
+            >
+              📜 Reglamento
             </Button>
           </Col>
         </Row>
+
+        
 
         <Container className="py-5">
           {/* Título principal */}
@@ -83,6 +96,22 @@ const RecursosHumanosPage = () => {
       </div>
     </div>
   );
+};
+
+// Estilo del botón
+const btnStyle = {
+  backgroundColor: '#c62828',
+  border: '2px solid #c62828',
+  color: 'white',
+  fontWeight: 'bold',
+  padding: '6px 12px',  // Reducido el padding para hacerlo más pequeño
+  transition: 'background-color 0.3s, border-color 0.3s',
+};
+
+// Función para hover
+const hoverBtn = (e, enter) => {
+  e.target.style.backgroundColor = enter ? '#e57373' : '#c62828';
+  e.target.style.borderColor = enter ? '#e57373' : '#c62828';
 };
 
 export default RecursosHumanosPage;

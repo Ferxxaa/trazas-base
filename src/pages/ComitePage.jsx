@@ -1,121 +1,113 @@
 import React from 'react';
-import { Container, Row, Col, Image, Button, Card, Carousel } from 'react-bootstrap';
-import { Link } from 'react-router-dom'; // Importando Link de react-router-dom
-import Navbar from '../components/Navbar'; // Asegurando que el Navbar se muestre
+import { Container, Row, Col, Image, Button, Card } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import Navbar from '../components/Navbar';
 
 const ComitePage = () => {
+  const navigate = useNavigate();
+
   return (
     <>
-      <Navbar /> {/* Asegurando que el Navbar se muestre */}
+      <Navbar />
 
-      <div style={{ 
-        paddingTop: '90px',  // Para evitar que el navbar tape el contenido
-        backgroundImage: 'url(/images/marmol3.jpg)',  // Ruta de la imagen de fondo
-        backgroundSize: 'cover',  // Hace que la imagen cubra toda la pantalla
-        backgroundPosition: 'center',  // Centra la imagen
-        minHeight: '100vh',  // Asegura que el fondo cubra toda la altura de la pantalla
-      }}>
+      <div
+        style={{
+          paddingTop: '90px',
+          backgroundImage: 'url(/images/marmol3.jpg)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          minHeight: '100vh',
+        }}
+      >
         <Container className="py-5">
-          
-          {/* Carousel para los botones deslizable */}
-          <Carousel indicators={false} controls={false} interval={null} className="mb-5">
-            <Carousel.Item>
-              <div className="text-center mb-5">
-                <Link to="/politica">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    className="mx-3 mb-3 mb-sm-0"
-                    style={{
-                      backgroundColor: '#c62828',
-                      border: '2px solid #c62828',
-                      color: 'white',
-                      fontWeight: 'bold',
-                      padding: '10px 20px', // Haciendo los botones más pequeños
-                      transition: 'background-color 0.3s, border-color 0.3s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = '#e57373';
-                      e.target.style.borderColor = '#e57373';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = '#c62828';
-                      e.target.style.borderColor = '#c62828';
-                    }}
-                  >
-                    Política de Seguridad
-                  </Button>
-                </Link>
-                <Link to="/objetivos">
-                  <Button
-                    variant="danger"
-                    size="sm"
-                    className="mx-3 mb-3 mb-sm-0"
-                    style={{
-                      backgroundColor: '#c62828',
-                      border: '2px solid #c62828',
-                      color: 'white',
-                      fontWeight: 'bold',
-                      padding: '10px 20px', // Haciendo los botones más pequeños
-                      transition: 'background-color 0.3s, border-color 0.3s',
-                    }}
-                    onMouseEnter={(e) => {
-                      e.target.style.backgroundColor = '#e57373';
-                      e.target.style.borderColor = '#e57373';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.target.style.backgroundColor = '#c62828';
-                      e.target.style.borderColor = '#c62828';
-                    }}
-                  >
-                    Objetivos
-                  </Button>
-                </Link>
-              </div>
-            </Carousel.Item>
-          </Carousel>
 
-          {/* Título de la página */}
+          {/* Botones de navegación arriba */}
+          <Row className="justify-content-center mt-3">
+            <Col md={3} className="mb-3">
+              <Button
+                variant="secondary"
+                size="sm" // Botón más pequeño
+                block
+                onClick={() => navigate('/')} // Regresar al inicio
+              >
+                🏠 Regresar al Inicio
+              </Button>
+            </Col>
+            <Col md={3} className="mb-3">
+              <Button
+                variant="danger"
+                size="sm" // Botón más pequeño
+                block
+                onClick={() => navigate('/politica')} // Regresar a Reglamento
+              >
+                📜 Política de Seguridad
+              </Button>
+            </Col>
+            <Col md={3} className="mb-3">
+              <Button
+                variant="info"
+                size="sm" // Botón más pequeño
+                block
+                onClick={() => navigate('/objetivos')} // Volver a Recursos Humanos
+              >
+                🎯 Objetivos
+              </Button>
+            </Col>
+          </Row>
+
+          {/* Título */}
           <h1 className="text-center mb-5" style={{ color: '#c62828' }}>
             Comité de Consulta y Participación
           </h1>
 
           {/* Sección Comité */}
-          <section id="comite">
-            <Card className="mb-5">
-              <Card.Body>
-                <Card.Title className="text-center" style={{ color: '#c62828' }}></Card.Title>
-                <Row className="justify-content-center mb-5">
-                  {[{ nombre: 'Randall Ortega', img: '/images/Randall.png' },
-                    { nombre: 'Luis Puente', img: '/images/Puente.png' },
-                    { nombre: 'Nelson Muñoz', img: '/images/Nelson.png' }
-                  ].map((persona, index) => (
-                    <Col key={index} xs={6} md={4} className="text-center mb-4">
-                      <Image
-                        src={persona.img}
-                        roundedCircle
-                        fluid
-                        style={{
-                          width: '120px',
-                          height: '120px',
-                          objectFit: 'cover',
-                          border: '3px solid #c62828'
-                        }}
-                      />
-                      <p className="mt-2 fw-bold">{persona.nombre}</p>
-                    </Col>
-                  ))}
-                </Row>
-                <Row className="justify-content-center">
-                  <Col md={10}>
-                    <p className="fs-5 text-justify">
-                      “Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participación, en un proceso previo, anterior a la toma de decisiones, referente a políticas y situaciones relevantes en Matriz de Seguridad y Salud Ocupacional”.
-                    </p>
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
-          </section>
+          {/* Sección Comité */}
+<section id="comite">
+  <Row className="justify-content-center mb-5">
+    {/* Card para las imágenes */}
+    <Col md={6} className="mb-4">
+      <Card className="mb-4">
+        <Card.Body>
+          <Row className="justify-content-center">
+            {[
+              { nombre: 'Randall Ortega', img: '/images/Randall.png' },
+              { nombre: 'Luis Puente', img: '/images/Puente.png' },
+              { nombre: 'Nelson Muñoz', img: '/images/Nelson.png' },
+            ].map((persona, index) => (
+              <Col key={index} xs={6} md={4} className="text-center mb-4">
+                <Image
+                  src={persona.img}
+                  roundedCircle
+                  fluid
+                  style={{
+                    width: '120px',
+                    height: '120px',
+                    objectFit: 'cover',
+                    border: '3px solid #c62828',
+                  }}
+                />
+                <p className="mt-2 fw-bold">{persona.nombre}</p>
+              </Col>
+            ))}
+          </Row>
+        </Card.Body>
+      </Card>
+    </Col>
+
+    {/* Card para el texto */}
+    <Col md={6}>
+      <Card className="mb-4">
+        <Card.Body>
+          <Card.Title className="text-center" style={{ color: '#c62828' }}></Card.Title>
+          <p className="fs-5 text-justify">
+            “Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participación, en un proceso previo, anterior a la toma de decisiones, referente a políticas y situaciones relevantes en Matriz de Seguridad y Salud Ocupacional”.
+          </p>
+        </Card.Body>
+      </Card>
+    </Col>
+  </Row>
+</section>
+
 
           {/* Imagen inferior */}
           <Row className="justify-content-center mt-5">
@@ -125,7 +117,7 @@ const ComitePage = () => {
                 fluid
                 rounded
                 style={{
-                  border: '2px solid #c62828'
+                  border: '2px solid #c62828',
                 }}
               />
             </Col>

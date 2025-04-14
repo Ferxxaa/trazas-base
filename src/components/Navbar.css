@@ -3,7 +3,7 @@
     position: fixed; /* Fija el menú en la pantalla */
     top: 10px; /* Ajusta la distancia desde la parte superior */
     right: 10px; /* Coloca el menú en la esquina derecha */
-    background-color: #c62828; /* Fondo rojo para el menú */
+    background-color: #989898; /* Fondo rojo para el menú */
     padding: 10px 20px; /* Espaciado interno */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
@@ -23,7 +23,7 @@
   
   /* Efecto hover para los enlaces */
   .menu a:hover {
-    background-color: #a62a24; /* Efecto al pasar el mouse */
+    background-color: #535353; /* Efecto al pasar el mouse */
     border-radius: 5px;
   }
   

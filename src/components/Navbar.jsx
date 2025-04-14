@@ -20,43 +20,49 @@ const CustomNavbar = () => {
   };
 
   return (
-    <Navbar expand="lg" style={{ backgroundColor: '#c62828' }} variant="dark" fixed="top">
-      <Container>
-        <Navbar.Brand as={Link} to="/" style={{ color: '#f5f5f5' }}>
-          <img 
-            src="/images/logo_trazas.png" 
-            alt="Logo" 
-            style={{ width: '40px', height: '40px', marginRight: '10px' }} 
-          />
-          <strong>Trazas</strong>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ms-auto">
-            <Nav.Link as={Link} to="/" style={{ color: '#f5f5f5' }}>Inicio</Nav.Link>
-            
-            <Nav.Link as={Link} to="/multimedia" style={{ color: '#f5f5f5' }}>Multimedia</Nav.Link>
-            <Nav.Link as={Link} to="/foro-trabajadores" style={{ color: '#f5f5f5' }}>Foro de Trabajadores</Nav.Link>
-            <Nav.Link as={Link} to="/admin" style={{ color: '#f5f5f5' }}>Panel de Admin</Nav.Link>
-            
-            
-            {/* Botón de cerrar sesión */}  
-            <Button
-              variant="light"
-              onClick={handleLogout}
-              className="ms-2"
-              style={{
-                backgroundColor: '#424242',
-                color: '#fff',
-                border: 'none'
-              }}
-            >
-              Cerrar sesión
-            </Button>  
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+    <>
+      <Navbar expand="lg" style={{ backgroundColor: '#302f2f' }} variant="dark" fixed="top">
+        <Container>
+          {/* Logo a la izquierda */}
+          <Navbar.Brand as={Link} to="/" style={{ color: '#f5f5f5' }}>
+            <img 
+              src="/images/intra.png" 
+              alt="Logo" 
+              style={{ width: '40px', height: '40px', marginRight: '10px' }} 
+            />
+            <strong>Trazas</strong>
+          </Navbar.Brand>
+
+          {/* Collapse del menú */}
+          <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+            <Nav className="align-items-center">
+              <Nav.Link as={Link} to="/" style={{ color: '#f5f5f5' }}>Inicio</Nav.Link>
+              <Nav.Link as={Link} to="/multimedia" style={{ color: '#f5f5f5' }}>Multimedia</Nav.Link>
+              <Nav.Link as={Link} to="/foro-trabajadores" style={{ color: '#f5f5f5' }}>Foro de Trabajadores</Nav.Link>
+              <Nav.Link as={Link} to="/admin" style={{ color: '#f5f5f5' }}>Panel de Admin</Nav.Link>
+
+              <Button
+                variant="light"
+                onClick={handleLogout}
+                className="ms-2"
+                style={{
+                  backgroundColor: '#424242',
+                  color: '#fff',
+                  border: 'none'
+                }}
+              >
+                Cerrar sesión
+              </Button>
+            </Nav>
+          </Navbar.Collapse>
+        </Container>
+
+        {/* Ícono hamburguesa en la esquina derecha */}
+        <div className="d-lg-none" style={{ position: 'absolute', right: '15px', top: '10px' }}>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        </div>
+      </Navbar>
+    </>
   );
 };
 

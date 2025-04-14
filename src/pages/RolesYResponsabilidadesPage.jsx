@@ -1,10 +1,12 @@
 // src/pages/ReglamentoPage.jsx
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Modal, Accordion } from 'react-bootstrap';
+import { Container, Row, Col, Button, Card, Modal, Accordion } from 'react-bootstrap';
 import Navbar from '../components/Navbar';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 const ReglamentoPage = () => {
   const [selected, setSelected] = useState(null);
+  const navigate = useNavigate(); // Crear instancia de navigate
 
   const items = [
     {
@@ -98,10 +100,44 @@ const ReglamentoPage = () => {
           minHeight: '100vh',
         }}
       >
+        {/* Botones de navegación arriba */}
+        <Row className="justify-content-center mt-3">
+          <Col md={3} className="mb-3">
+            <Button
+              variant="secondary"
+              size="sm" // Botón más pequeño
+              block
+              onClick={() => navigate('/')} // Regresar al inicio
+            >
+              🏠 Regresar al Inicio
+            </Button>
+          </Col>
+          <Col md={3} className="mb-3">
+            <Button
+              variant="danger"
+              size="sm" // Botón más pequeño
+              block
+              onClick={() => navigate('/reglamento')} // Regresar a Recursos Humanos
+            >
+              📋 Volver a Reglameto
+            </Button>
+          </Col>
+          <Col md={3} className="mb-3">
+            <Button
+              variant="info"
+              size="sm" // Botón más pequeño
+              block
+              onClick={() => navigate('/recursos-humanos')} // Volver a Roles y Responsabilidades
+            >
+              👥 Volver a Recursos Humanos
+            </Button>
+          </Col>
+        </Row>
+
         <Container className="py-5">
           <Row className="justify-content-center mb-4">
             <Col md={12} className="text-center">
-              <h1 style={{ color: '#e60000', fontSize: '2.5rem', fontWeight: 'bold' }}>Reglamento</h1>
+              <h1 style={{ color: '#e60000', fontSize: '2.5rem', fontWeight: 'bold' }}>Roles y Responsabilidades</h1>
               <p>Haz clic en una imagen para conocer más detalles del reglamento.</p>
             </Col>
           </Row>

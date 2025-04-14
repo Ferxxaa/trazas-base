@@ -1,59 +1,70 @@
 import React from 'react';
-import { Container, Row, Col, Card, Image } from 'react-bootstrap';
-import Navbar from '../components/Navbar';  // Asegurando que el Navbar se muestre
-import { Link } from 'react-router-dom';
+import { Container, Row, Col, Card, Image, Button } from 'react-bootstrap';
+import Navbar from '../components/Navbar';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 const PoliticaPage = () => {
+  const location = useLocation();
+  const currentPath = location.pathname;
+  const navigate = useNavigate();
+
   return (
     <>
-      <Navbar /> {/* Asegurando que el Navbar se muestre */}
+      <Navbar />
 
       <div
         style={{
           paddingTop: '90px',
-          backgroundImage: 'url("/images/marmol3.jpg")',  // Ruta de la imagen de fondo
+          backgroundImage: 'url("/images/marmol3.jpg")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
-          backgroundColor: '#f8f9fa', // Color de fondo de reserva
+          backgroundColor: '#f8f9fa',
         }}
       >
         <Container className="py-5">
-          {/* Botones para regresar al Comité, uno al lado del otro y pequeños */}
-          <div className="text-center mb-5">
-            <Link to="/comite">
-              <button
-                className="btn btn-outline-danger mx-1"
-                style={{
-                  padding: '8px 20px', // Botones más pequeños
-                  fontWeight: 'bold',
-                  fontSize: '0.9rem', // Tamaño de fuente reducido
-                  transition: 'background-color 0.3s, border-color 0.3s',
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.backgroundColor = '#e57373';
-                  e.target.style.borderColor = '#e57373';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.backgroundColor = 'transparent';
-                  e.target.style.borderColor = '#c62828';
-                }}
+          {/* Botones de navegación arriba */}
+          <Row className="justify-content-center mt-3">
+            <Col md={3} className="mb-3">
+              <Button
+                variant="secondary"
+                size="sm"
+                block
+                onClick={() => navigate('/')} // Regresar al inicio
               >
-                Regresar al Comité
-              </button>
-            </Link>
-          </div>
+                🏡 Inicio
+              </Button>
+            </Col>
+            <Col md={3} className="mb-3">
+              <Button
+                variant="danger"
+                size="sm"
+                block
+                onClick={() => navigate('/comite')} // Ir a Política
+              >
+                🧑‍🧒‍🧒 Comite
+              </Button>
+            </Col>
+            <Col md={3} className="mb-3">
+              <Button
+                variant="info"
+                size="sm"
+                block
+                onClick={() => navigate('/objetivos')} // Ir a Objetivos
+              >
+                🎯 Objetivos
+              </Button>
+            </Col>
+          </Row>
 
-          {/* Título de la página */}
           <h1 className="text-center mb-5" style={{ color: '#c62828', fontFamily: 'Arial, sans-serif' }}>
             Política de Seguridad
           </h1>
 
-          {/* Imagen debajo del título */}
           <Row className="justify-content-center mb-5">
             <Col xs={12} md={8}>
               <Image
-                src="/images/politica.jpg"  // Asegúrate de tener esta imagen en la ruta correcta
+                src="/images/politica.jpg"
                 alt="Imagen de política"
                 fluid
                 rounded
@@ -62,14 +73,12 @@ const PoliticaPage = () => {
             </Col>
           </Row>
 
-          {/* Sección de la política */}
           <section id="politica" style={{ backgroundColor: '#e0e0e0', borderRadius: '10px', padding: '30px' }}>
             <Card>
               <Card.Body>
                 <Card.Title className="text-center" style={{ color: '#c62828', fontFamily: 'Arial, sans-serif' }}>
                   POLITICA
                 </Card.Title>
-
                 <Row className="justify-content-center">
                   <Col xs={12} md={10}>
                     <p className="fs-5 text-justify" style={{ color: '#333', fontFamily: 'Arial, sans-serif' }}>
@@ -96,6 +105,22 @@ const PoliticaPage = () => {
       </div>
     </>
   );
+};
+
+// Estilo del botón
+const btnStyle = {
+  backgroundColor: '#c62828',
+  border: '2px solid #c62828',
+  color: 'white',
+  fontWeight: 'bold',
+  padding: '8px 16px',
+  transition: 'background-color 0.3s, border-color 0.3s',
+};
+
+// Función para hover
+const hoverBtn = (e, enter) => {
+  e.target.style.backgroundColor = enter ? '#e57373' : '#c62828';
+  e.target.style.borderColor = enter ? '#e57373' : '#c62828';
 };
 
 export default PoliticaPage;
