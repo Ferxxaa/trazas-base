@@ -26,7 +26,7 @@ const CustomNavbar = () => {
           {/* Logo a la izquierda */}
           <Navbar.Brand as={Link} to="/" style={{ color: '#f5f5f5' }}>
             <img 
-              src="/images/intra.png" 
+              src="/images/intra3.png" 
               alt="Logo" 
               style={{ width: '40px', height: '40px', marginRight: '10px' }} 
             />
