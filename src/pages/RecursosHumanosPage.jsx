@@ -2,14 +2,15 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';  // Asegúrate de que la ruta sea correcta
 import { Container, Row, Col, Button, Card } from 'react-bootstrap';
+import { FaHome, FaClipboard, FaRegFileAlt } from 'react-icons/fa'; // Íconos actualizados
 
 const RecursosHumanosPage = () => {
   const navigate = useNavigate();
 
   // Estilo del botón
   const btnStyle = {
-    fontSize: '0.8rem',  // Reducir el tamaño de la fuente
-    padding: '8px 16px',  // Reducir el padding
+    fontSize: '0.9rem',  // Agrandar el tamaño de la fuente
+    padding: '10px 20px',  // Aumentar el padding
     backgroundColor: '#b32400',  // Fondo rojo oscuro
     border: '2px solid #b32400',  // Borde de color rojo oscuro
     borderRadius: '10px',  // Borde redondeado
@@ -45,40 +46,64 @@ const RecursosHumanosPage = () => {
           <Col md={3} className="mb-3">
             <Button
               variant="secondary"
-              size="sm"  // Botón más pequeño
+              size="0.9rem"  // Botón más pequeño
               block
               onClick={() => navigate('/')}  // Regresar al inicio
               onMouseEnter={(e) => hoverBtn(e, true)} 
               onMouseLeave={(e) => hoverBtn(e, false)}
               style={btnStyle}
             >
-              🏠 Regresar al Inicio
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
+                }}
+              >
+                <FaHome style={{ marginRight: '10px', fontSize: '1.3rem' }} />
+                <span style={{ flex: 1, textAlign: 'center' }}>Inicio</span>
+              </div>
             </Button>
           </Col>
           <Col md={3} className="mb-3">
             <Button
               variant="danger"
-              size="sm"  // Botón más pequeño
+              size="0.9rem"  // Botón más pequeño
               block
               onClick={() => navigate('/roles-y-responsabilidades')}  // Volver a Roles y Responsabilidades
               onMouseEnter={(e) => hoverBtn(e, true)} 
               onMouseLeave={(e) => hoverBtn(e, false)}
               style={btnStyle}
             >
-              📋 Roles y Responsabilidades
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
+                }}
+              >
+                <FaClipboard style={{ marginRight: '10px', fontSize: '1.3rem' }} />
+                <span style={{ flex: 1, textAlign: 'center' }}>Roles y Responsabilidades</span>
+              </div>
             </Button>
           </Col>
           <Col md={3} className="mb-3">
             <Button
               variant="info"
-              size="sm"  // Botón más pequeño
+              size="0.9rem"  // Botón más pequeño
               block
               onClick={() => navigate('/reglamento')}  // Volver al Reglamento
               onMouseEnter={(e) => hoverBtn(e, true)} 
               onMouseLeave={(e) => hoverBtn(e, false)}
               style={btnStyle}
             >
-              📜 Reglamento
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
+                }}
+              >
+                <FaRegFileAlt style={{ marginRight: '10px', fontSize: '1.3rem' }} />
+                <span style={{ flex: 1, textAlign: 'center' }}>Reglamento</span>
+              </div>
             </Button>
           </Col>
         </Row>

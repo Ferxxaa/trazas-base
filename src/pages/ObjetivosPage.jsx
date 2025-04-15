@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button, Row, Col } from 'react-bootstrap';
 import Navbar from '../components/Navbar';  // Asegúrate de importar el Navbar
+import { FaHome, FaUsers, FaFileAlt } from 'react-icons/fa'; // Íconos actualizados
 
 const ObjetivosPage = () => {
   const location = useLocation();
@@ -13,6 +14,9 @@ const ObjetivosPage = () => {
 
   return (
     <>
+      {/* Espacio arriba antes del navbar */}
+      <div style={{ height: '50px' }}></div>
+
       {/* Navbar y fondo */}
       <Navbar />
       <div
@@ -23,6 +27,8 @@ const ObjetivosPage = () => {
           backgroundPosition: 'center',
           backgroundAttachment: 'fixed',
           backgroundColor: '#f8f9fa', // Color de fondo de reserva
+          fontFamily: 'Arial, sans-serif', // Fuente Arial
+          fontSize: '0.9rem', // Tamaño de fuente más grande
         }}
       >
         {/* Botones de navegación arriba */}
@@ -38,7 +44,15 @@ const ObjetivosPage = () => {
                 onMouseLeave={(e) => hoverBtn(e, false)}
                 style={btnStyle}
               >
-                🏡 Inicio
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
+                  }}
+                >
+                  <FaHome style={{ marginRight: '10px', fontSize: '1.3rem' }} />
+                  <span style={{ flex: 1, textAlign: 'center' }}>Inicio</span>
+                </div>
               </Button>
             </Col>
             {currentPath !== '/comite' && (
@@ -52,7 +66,15 @@ const ObjetivosPage = () => {
                   onMouseLeave={(e) => hoverBtn(e, false)}
                   style={btnStyle}
                 >
-                  📋 Comité
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
+                    }}
+                  >
+                    <FaUsers style={{ marginRight: '10px', fontSize: '1.3rem' }} />
+                    <span style={{ flex: 1, textAlign: 'center' }}>Comité</span>
+                  </div>
                 </Button>
               </Col>
             )}
@@ -67,7 +89,15 @@ const ObjetivosPage = () => {
                   onMouseLeave={(e) => hoverBtn(e, false)}
                   style={btnStyle}
                 >
-                  📜 Política de Seguridad
+                  <div
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
+                    }}
+                  >
+                    <FaFileAlt style={{ marginRight: '10px', fontSize: '1.3rem' }} />
+                    <span style={{ flex: 1, textAlign: 'center' }}>Política de Seguridad</span>
+                  </div>
                 </Button>
               </Col>
             )}

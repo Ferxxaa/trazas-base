@@ -268,10 +268,18 @@ const Dashboard = () => {
               sx={{ mb: 2 }}
             />
             <TextField
-              label="Correo Electrónico"
+              label="Correo"
               fullWidth
               value={usuarioForm.correo}
               onChange={(e) => setUsuarioForm({ ...usuarioForm, correo: e.target.value })}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              label="Contraseña"
+              type="password"
+              fullWidth
+              value={usuarioForm.password}
+              onChange={(e) => setUsuarioForm({ ...usuarioForm, password: e.target.value })}
               sx={{ mb: 2 }}
             />
             <TextField
@@ -281,18 +289,10 @@ const Dashboard = () => {
               onChange={(e) => setUsuarioForm({ ...usuarioForm, rut: e.target.value })}
               sx={{ mb: 2 }}
             />
-            <TextField
-              label="Contraseña"
-              fullWidth
-              type="password"
-              value={usuarioForm.password}
-              onChange={(e) => setUsuarioForm({ ...usuarioForm, password: e.target.value })}
-              sx={{ mb: 2 }}
-            />
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setIsDialogOpen(false)}>Cancelar</Button>
-            <Button onClick={handleRegister}>Crear</Button>
+            <Button onClick={() => setIsDialogOpen(false)} color="primary">Cancelar</Button>
+            <Button onClick={handleRegister} color="primary">Registrar</Button>
           </DialogActions>
         </Dialog>
       </Box>

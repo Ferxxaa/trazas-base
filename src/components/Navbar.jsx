@@ -24,11 +24,16 @@ const CustomNavbar = () => {
       <Navbar expand="lg" style={{ backgroundColor: '#302f2f' }} variant="dark" fixed="top">
         <Container>
           {/* Logo a la izquierda */}
-          <Navbar.Brand as={Link} to="/" style={{ color: '#f5f5f5' }}>
+          <Navbar.Brand as={Link} to="/" style={{ color: '#f5f5f5', display: 'flex', alignItems: 'center' }}>
             <img 
               src="/images/intra3.png" 
               alt="Logo" 
-              style={{ width: '40px', height: '40px', marginRight: '10px' }} 
+              style={{
+                width: '75px',   // Aumenta el tamaño del logo
+                height: '75px',  // Mantén la proporción del logo
+                marginRight: '5px',
+                objectFit: 'contain'  // Asegura que el logo no se deforme
+              }} 
             />
             <strong>Trazas</strong>
           </Navbar.Brand>
@@ -38,7 +43,6 @@ const CustomNavbar = () => {
             <Nav className="align-items-center">
               <Nav.Link as={Link} to="/" style={{ color: '#f5f5f5' }}>Inicio</Nav.Link>
               <Nav.Link as={Link} to="/multimedia" style={{ color: '#f5f5f5' }}>Multimedia</Nav.Link>
-              
               <Nav.Link as={Link} to="/admin" style={{ color: '#f5f5f5' }}>Panel de Admin</Nav.Link>
 
               <Button
@@ -58,7 +62,7 @@ const CustomNavbar = () => {
         </Container>
 
         {/* Ícono hamburguesa en la esquina derecha */}
-        <div className="d-lg-none" style={{ position: 'absolute', right: '15px', top: '10px' }}>
+        <div className="d-lg-none" style={{ position: 'absolute', right: '25px', top: '40px' }}>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
         </div>
       </Navbar>
