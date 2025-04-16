@@ -41,7 +41,7 @@ const CustomNavbar = () => {
           {/* Collapse del menú */}
           <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
             <Nav className="align-items-center">
-              <Nav.Link as={Link} to="/" style={{ color: '#f5f5f5' }}>Inicio</Nav.Link>
+              <Nav.Link as={Link} to="/" style={{ color: '#f5f5f5' }}>Home</Nav.Link>
               <Nav.Link as={Link} to="/multimedia" style={{ color: '#f5f5f5' }}>Multimedia</Nav.Link>
               <Nav.Link as={Link} to="/admin" style={{ color: '#f5f5f5' }}>Panel de Admin</Nav.Link>
 

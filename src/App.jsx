@@ -18,6 +18,7 @@ import PoliticaPage from './pages/PoliticaPage';
 import ObjetivosPage from './pages/ObjetivosPage';
 import RolesYResponsabilidadesPage from './pages/RolesYResponsabilidadesPage';
 import ReglamentoPage from './pages/ReglamentoPage';
+import Beneficios from './pages/beneficios'; // Asegúrate de importar la página de Beneficios
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -53,7 +54,8 @@ const App = () => {
         <Route path="/objetivos" element={<ObjetivosPage />} />
         <Route path="/roles-y-responsabilidades" element={<RolesYResponsabilidadesPage />} />  {/* Ruta para RolesYResponsabilidadesPage */}
         <Route path="/reglamento" element={<ReglamentoPage />} />  {/* Ruta para ReglamentoPage */}
-        
+        <Route path="/beneficios" element={<Beneficios />} />
+
       </Routes>
     </Router>
   );

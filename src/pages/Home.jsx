@@ -32,7 +32,8 @@ const Home = () => {
       submenu: [
         { title: 'Representante Recursos Humanos', route: '/recursos-humanos' },
         { title: 'Roles y Responsabilidades', route: '/roles-y-responsabilidades' },
-        { title: 'Reglamento', route: '/reglamento' }
+        { title: 'Reglamento', route: '/reglamento' },
+        { title: 'Beneficios', route: '/Beneficios' }
       ]
     },
     {
