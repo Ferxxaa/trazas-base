@@ -10,16 +10,45 @@ const fontFamilyStyle = {
 
 const Home = () => {
   const navigate = useNavigate();
-  const [expanded, setExpanded] = useState(false);
+  const [expandedIndex, setExpandedIndex] = useState(null);
   const [showForm, setShowForm] = useState(false);
-
   const isAdmin = true;
 
   const cardData = [
-    { icon: <FaComments />, title: 'Consulta y Participación', route: '/comite' },
-    { icon: <FaUsers />, title: 'Recursos Humanos', route: '/recursos-humanos' },
-    { icon: <FaBook />, title: 'Hechos Relevantes', route: '/hechos-relevantes' }
+    {
+      icon: <FaComments />,
+      title: 'Consulta y Participación',
+      route: '/comite',
+      submenu: [
+        { title: 'Comite de consulta y Participación', route: 'comite' },
+        { title: 'Política', route: 'politica' },
+        { title: 'Objetivos', route: '/objetivos' }
+      ]
+    },
+    {
+      icon: <FaUsers />,
+      title: 'Recursos Humanos',
+      route: '/recursos-humanos',
+      submenu: [
+        { title: 'Representante Recursos Humanos', route: '/recursos-humanos' },
+        { title: 'Roles y Responsabilidades', route: '/roles-y-responsabilidades' },
+        { title: 'Reglamento', route: '/reglamento' }
+      ]
+    },
+    {
+      icon: <FaBook />,
+      title: 'Hechos Relevantes',
+      route: '/hechos-relevantes',
+      submenu: [
+        { title: 'Resumen Mensual', route: '/hechos-relevantes/mensual' },
+        { title: 'Logros', route: '/hechos-relevantes/logros' }
+      ]
+    }
   ];
+
+  const toggleSubmenu = (index) => {
+    setExpandedIndex(index === expandedIndex ? null : index);
+  };
 
   const [newsData, setNewsData] = useState([
     {
@@ -31,28 +60,6 @@ const Home = () => {
       comments: [
         { text: "Usuario1: Me parece excelente medida." },
         { text: "Usuario2: ¿Cuándo comienza a aplicarse?" }
-      ]
-    },
-    {
-      title: 'Reformas en Recursos Humanos',
-      description: 'Se han implementado nuevas políticas de bienestar para todos nuestros colaboradores.',
-      route: '/noticia2',
-      imgSrc: '/images/rp.jpg',
-      date: '07/04/2025',
-      comments: [
-        { text: "Usuario3: Estas reformas son un gran paso." },
-        { text: "Usuario4: Espero que se mantenga la transparencia." }
-      ]
-    },
-    {
-      title: 'Hechos Relevantes del Mes',
-      description: 'Este mes logramos avances significativos en la mejora de nuestros procesos internos.',
-      route: '/noticia3',
-      imgSrc: '/images/home.jpg',
-      date: '04/04/2025',
-      comments: [
-        { text: "Usuario5: Muy buenos avances, felicidades." },
-        { text: "Usuario6: ¿Dónde puedo encontrar más detalles?" }
       ]
     }
   ]);
@@ -71,19 +78,16 @@ const Home = () => {
 
   const handleAddPost = () => {
     if (!newPost.title || !newPost.description || !newPost.imgSrc) return;
-
     const currentDate = new Date().toLocaleDateString('es-CL', {
       day: '2-digit',
       month: '2-digit',
       year: 'numeric'
     });
-
     const newPostData = {
       ...newPost,
       date: currentDate,
       comments: []
     };
-
     const updatedNews = [newPostData, ...newsData].sort((a, b) => {
       const [dayA, monthA, yearA] = a.date.split('/').map(Number);
       const [dayB, monthB, yearB] = b.date.split('/').map(Number);
@@ -91,7 +95,6 @@ const Home = () => {
       const dateB = new Date(yearB, monthB - 1, dayB);
       return dateB - dateA;
     });
-
     setNewsData(updatedNews);
     setNewPost({ title: '', description: '', imgSrc: '' });
     setShowForm(false);
@@ -109,56 +112,31 @@ const Home = () => {
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       minHeight: '100vh',
-      paddingTop: '110px', // <-- Margen superior para separar del navbar
+      paddingTop: '110px',
       ...fontFamilyStyle
     }}>
-    
-      {/* Carrusel */}
-      <div style={{ position: 'relative' }}>
-        <Carousel fade interval={5000}>
-          <Carousel.Item>
-            <img className="d-block w-100" src="/images/ArqIng-B.png" alt="Slide 1"
-              style={{ maxHeight: '500px', objectFit: 'cover' }} />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100" src="/images/carrusel4.png" alt="Slide 2"
-              style={{ maxHeight: '500px', objectFit: 'cover' }} />
-          </Carousel.Item>
-          <Carousel.Item>
-            <img className="d-block w-100" src="/images/carrusel5.png" alt="Slide 3"
-              style={{ maxHeight: '500px', objectFit: 'cover' }} />
-          </Carousel.Item>
-        </Carousel>
+      <Carousel fade interval={5000}>
+        <Carousel.Item>
+          <img className="d-block w-100" src="/images/ArqIng-B.png" alt="Slide 1"
+            style={{ maxHeight: '500px', objectFit: 'cover' }} />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className="d-block w-100" src="/images/carrusel4.png" alt="Slide 2"
+            style={{ maxHeight: '500px', objectFit: 'cover' }} />
+        </Carousel.Item>
+        <Carousel.Item>
+          <img className="d-block w-100" src="/images/carrusel5.png" alt="Slide 3"
+            style={{ maxHeight: '500px', objectFit: 'cover' }} />
+        </Carousel.Item>
+      </Carousel>
 
-        <div style={{
-          position: 'absolute',
-          top: '38%',
-          left: '50%',
-          transform: 'translate(-50%, -38%)',
-          textAlign: 'center',
-          fontFamily: "'Poppins', sans-serif",
-          zIndex: 10
-        }}>
-          <div style={{
-            backgroundColor: 'rgba(0, 0, 0, 0.53)',
-            padding: '6px 12px',
-            borderRadius: '8px',
-            display: 'inline-block'
-          }}>
-            <h1 style={{ fontWeight: 600, fontSize: '1.8rem', color: '#ffffff', margin: 0 }}>INTRANET</h1>
-            <h4 style={{ fontWeight: 400, fontSize: '1rem', color: '#ffffff', marginTop: '4px' }}>Más cerca de ti</h4>
-          </div>
-        </div>
-      </div>
-
-      {/* Botones tipo card con ícono a la izquierda */}
       <Container className="py-4 px-3">
         <Row className="g-3 justify-content-center">
           {cardData.map((item, index) => (
-            <Col key={index} xs={12} sm={6} md={3} className="d-flex justify-content-center">
+            <Col key={index} xs={12} sm={6} md={3} className="d-flex flex-column align-items-center position-relative">
               <Button
-                onClick={() => navigate(item.route)}
-                className="text-white"
+                onClick={() => toggleSubmenu(index)}
+                className="text-white mb-2"
                 style={{
                   backgroundColor: '#b32400',
                   border: 'none',
@@ -167,22 +145,44 @@ const Home = () => {
                   minWidth: '200px',
                   fontSize: '0.9rem',
                   fontWeight: '500',
-                  transition: 'transform 0.2s ease, background-color 0.3s ease',
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                  cursor: 'pointer',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
-                  textAlign: 'center'
                 }}
               >
-                <div style={{ flex: '0 0 auto', marginRight: '10px', fontSize: '1.3rem' }}>
-                  {item.icon}
-                </div>
-                <div style={{ flex: '1', textAlign: 'center' }}>
-                  {item.title}
-                </div>
+                <span style={{ marginRight: '10px', fontSize: '1.3rem' }}>{item.icon}</span>
+                {item.title}
+                <span style={{ marginLeft: '10px' }}>{expandedIndex === index ? '▲' : '▼'}</span>
               </Button>
+
+              {expandedIndex === index && (
+                <div style={{
+                  width: '100%',
+                  backgroundColor: '#e34c26',
+                  borderRadius: '8px',
+                  boxShadow: '0 2px 6px rgba(0,0,0,0.2)',
+                  overflow: 'hidden'
+                }}>
+                  {item.submenu.map((subItem, subIndex) => (
+                    <Button
+                      key={subIndex}
+                      variant="light"
+                      onClick={() => navigate(subItem.route)}
+                      className="w-100 text-start"
+                      style={{
+                        padding: '10px 16px',
+                        borderBottom: subIndex < item.submenu.length - 1 ? '1px solid rgba(255,255,255,0.3)' : 'none',
+                        color: '#fff',
+                        backgroundColor: '#e34c26',
+                        borderRadius: '0',
+                        textAlign: 'left'
+                      }}
+                    >
+                      {subItem.title}
+                    </Button>
+                  ))}
+                </div>
+              )}
             </Col>
           ))}
         </Row>

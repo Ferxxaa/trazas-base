@@ -38,48 +38,7 @@ const ReglamentoPage = () => {
           minHeight: '100vh',
         }}
       >
-        {/* Botones de navegación arriba */}
-        <Row className="justify-content-center mt-3">
-          <Col md={3} className="mb-3">
-            <Button
-              variant="secondary"
-              size="sm" // Botón más pequeño
-              block
-              onClick={() => navigate('/')} // Regresar al inicio
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              🏠 Regresar al Inicio
-            </Button>
-          </Col>
-          <Col md={3} className="mb-3">
-            <Button
-              variant="danger"
-              size="sm" // Botón más pequeño
-              block
-              onClick={() => navigate('/recursos-humanos')} // Regresar a Recursos Humanos
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              👥 Volver a Recursos Humanos
-            </Button>
-          </Col>
-          <Col md={3} className="mb-3">
-            <Button
-              variant="info"
-              size="sm" // Botón más pequeño
-              block
-              onClick={() => navigate('/roles-y-responsabilidades')} // Volver a Roles y Responsabilidades
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              📋 Roles y Responsabilidades
-            </Button>
-          </Col>
-        </Row>
+        
 
         <Container className="py-5 text-center">
           <h1 style={{ color: '#e60000', fontSize: '2.5rem', fontWeight: 'bold' }}>Descargar Documentos del Reglamento</h1>

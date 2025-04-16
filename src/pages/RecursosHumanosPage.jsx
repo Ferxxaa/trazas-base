@@ -42,71 +42,7 @@ const RecursosHumanosPage = () => {
         }}
       >
         {/* Botones de navegación arriba */}
-        <Row className="justify-content-center mt-3">
-          <Col md={3} className="mb-3">
-            <Button
-              variant="secondary"
-              size="0.9rem"  // Botón más pequeño
-              block
-              onClick={() => navigate('/')}  // Regresar al inicio
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
-                }}
-              >
-                <FaHome style={{ marginRight: '10px', fontSize: '1.3rem' }} />
-                <span style={{ flex: 1, textAlign: 'center' }}>Inicio</span>
-              </div>
-            </Button>
-          </Col>
-          <Col md={3} className="mb-3">
-            <Button
-              variant="danger"
-              size="0.9rem"  // Botón más pequeño
-              block
-              onClick={() => navigate('/roles-y-responsabilidades')}  // Volver a Roles y Responsabilidades
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
-                }}
-              >
-                <FaClipboard style={{ marginRight: '10px', fontSize: '1.3rem' }} />
-                <span style={{ flex: 1, textAlign: 'center' }}>Roles y Responsabilidades</span>
-              </div>
-            </Button>
-          </Col>
-          <Col md={3} className="mb-3">
-            <Button
-              variant="info"
-              size="0.9rem"  // Botón más pequeño
-              block
-              onClick={() => navigate('/reglamento')}  // Volver al Reglamento
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
-                }}
-              >
-                <FaRegFileAlt style={{ marginRight: '10px', fontSize: '1.3rem' }} />
-                <span style={{ flex: 1, textAlign: 'center' }}>Reglamento</span>
-              </div>
-            </Button>
-          </Col>
-        </Row>
+        
 
         <Container className="py-5">
           {/* Título principal */}

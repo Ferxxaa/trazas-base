@@ -15,28 +15,29 @@ const Login = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      
-      // Verifica si el correo del usuario es el del admin
+
       if (user.email === 'admin@example.com') {
-        navigate('/admin'); // Redirige al panel de admin
+        navigate('/admin');
       } else {
-        navigate('/'); // Redirige al home o al dashboard para usuarios comunes
+        navigate('/');
       }
     } catch (error) {
       alert('Error al iniciar sesión: ' + error.message);
     }
   };
 
-  const navigateToCreateUser = () => {
-    navigate('/crear-usuario'); // Redirige a la página de creación de usuario
-  };
-
   return (
-    <div className="login-container">
+    <div 
+      className="login-container" 
+      style={{ 
+        backgroundImage: 'url(/images/fondo_login.jpg)', 
+        backgroundSize: 'cover', 
+        backgroundPosition: 'center',
+        height: '100vh' 
+      }}
+    >
       <div className="login-card">
-        {/* Logo aquí */}
         <img src="/images/logo_trazas.png" alt="Logo" className="logo" />
-
         <h2>Iniciar sesión</h2>
         <form onSubmit={handleLogin}>
           <input
@@ -55,9 +56,6 @@ const Login = () => {
           />
           <button type="submit">Iniciar sesión</button>
         </form>
-        <button className="create-account-btn" onClick={navigateToCreateUser}>
-          ¿No tienes cuenta? Crear cuenta
-        </button>
       </div>
     </div>
   );

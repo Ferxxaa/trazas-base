@@ -118,48 +118,7 @@ const ReglamentoPage = () => {
           minHeight: '100vh',
         }}
       >
-        {/* Botones de navegación arriba */}
-        <Row className="justify-content-center mt-3">
-          <Col md={3} className="mb-3">
-            <Button
-              variant="secondary"
-              size="sm" // Botón más pequeño
-              block
-              onClick={() => navigate('/')} // Regresar al inicio
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              🏠 Regresar al Inicio
-            </Button>
-          </Col>
-          <Col md={3} className="mb-3">
-            <Button
-              variant="danger"
-              size="sm" // Botón más pequeño
-              block
-              onClick={() => navigate('/reglamento')} // Regresar a Recursos Humanos
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              📋 Ir a Reglameto
-            </Button>
-          </Col>
-          <Col md={3} className="mb-3">
-            <Button
-              variant="info"
-              size="sm" // Botón más pequeño
-              block
-              onClick={() => navigate('/recursos-humanos')} // Volver a Roles y Responsabilidades
-              onMouseEnter={(e) => hoverBtn(e, true)} 
-              onMouseLeave={(e) => hoverBtn(e, false)}
-              style={btnStyle}
-            >
-              👥 Volver a Recursos Humanos
-            </Button>
-          </Col>
-        </Row>
+        
 
         <Container className="py-5">
           <Row className="justify-content-center mb-4">

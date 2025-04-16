@@ -7,32 +7,7 @@ import Navbar from '../components/Navbar';
 const ComitePage = () => {
   const navigate = useNavigate();
 
-  // Estilo del botón igual al de Home
-  const btnStyle = {
-    backgroundColor: '#b32400',  // Mismo color de fondo
-    border: 'none',  // Sin borde
-    borderRadius: '10px',  // Radio de borde igual
-    padding: '10px 18px',  // Padding igual al de Home
-    minWidth: '200px',  // Mínimo ancho igual
-    fontSize: '0.9rem',  // Mismo tamaño de fuente
-    fontWeight: '500',  // Mismo peso de fuente
-    transition: 'transform 0.2s ease, background-color 0.3s ease', // Animación
-    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',  // Sombra similar
-    cursor: 'pointer',  // Cursor pointer
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',  // Centra el texto
-  };
-
-  const handleHover = (e) => {
-    e.target.style.backgroundColor = '#9c2c00'; // Cambio de color al pasar el ratón
-    e.target.style.transform = 'scale(1.05)'; // Escala al hacer hover
-  };
-
-  const handleMouseOut = (e) => {
-    e.target.style.backgroundColor = '#b32400'; // Color original
-    e.target.style.transform = 'scale(1)'; // Escala original
-  };
+  
 
   return (
     <>
@@ -49,55 +24,7 @@ const ComitePage = () => {
       >
         <Container className="py-5">
           {/* Botones de navegación arriba */}
-          <div className="text-center mb-5">
-  <Row className="justify-content-center mt-3">
-    <Col md={3} className="mb-3">
-      <Button
-        onClick={() => navigate('/')}
-        style={btnStyle}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleMouseOut}
-      >
-        <div style={{ flex: '0 0 auto', marginRight: '10px', fontSize: '1.3rem' }}>
-          <FaHome />
-        </div>
-        <div style={{ flex: '1', textAlign: 'center' }}>
-          Inicio
-        </div>
-      </Button>
-    </Col>
-    <Col md={3} className="mb-3">
-      <Button
-        onClick={() => navigate('/politica')}
-        style={btnStyle}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleMouseOut}
-      >
-        <div style={{ flex: '0 0 auto', marginRight: '10px', fontSize: '1.3rem' }}>
-          <FaFileAlt />
-        </div>
-        <div style={{ flex: '1', textAlign: 'center' }}>
-          Política de Seguridad
-        </div>
-      </Button>
-    </Col>
-    <Col md={3} className="mb-3">
-      <Button
-        onClick={() => navigate('/objetivos')}
-        style={btnStyle}
-        onMouseEnter={handleHover}
-        onMouseLeave={handleMouseOut}
-      >
-        <div style={{ flex: '0 0 auto', marginRight: '10px', fontSize: '1.3rem' }}>
-          <FaBullseye />
-        </div>
-        <div style={{ flex: '1', textAlign: 'center' }}>
-          Objetivos
-        </div>
-      </Button>
-    </Col>
-  </Row>
-</div>
+          
 
 
           {/* Título */}
@@ -143,9 +70,10 @@ const ComitePage = () => {
                 <Card className="mb-4">
                   <Card.Body>
                     <Card.Title className="text-center" style={{ color: '#c62828' }}></Card.Title>
-                    <p className="fs-5 text-justify">
-                      “Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participación, en un proceso previo, anterior a la toma de decisiones, referente a políticas y situaciones relevantes en Matriz de Seguridad y Salud Ocupacional”.
-                    </p>
+                    <p className="fs-5" style={{ textAlign: 'justify' }}>
+  “Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participación, en un proceso previo, anterior a la toma de decisiones, referente a políticas y situaciones relevantes en Matriz de Seguridad y Salud Ocupacional”.
+</p>
+
                   </Card.Body>
                 </Card>
               </Col>
