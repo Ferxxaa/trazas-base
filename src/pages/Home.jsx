@@ -22,7 +22,7 @@ const Home = () => {
       submenu: [
         { title: 'Comite de consulta y Participación', route: 'comite' },
         { title: 'Política', route: 'politica' },
-        { title: 'Objetivos', route: '/objetivos' }
+        { title: 'Objetivos', route: 'objetivos' }
       ]
     },
     {

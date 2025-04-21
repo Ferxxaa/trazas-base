@@ -31,78 +31,8 @@ const ObjetivosPage = () => {
           fontSize: '0.9rem', // Tamaño de fuente más grande
         }}
       >
-        {/* Botones de navegación arriba */}
-        <div className="text-center mb-5">
-          <Row className="justify-content-center mt-3">
-            <Col md={3} className="mb-3">
-              <Button
-                variant="secondary"
-                size="sm"
-                block
-                onClick={() => navigate('/')} // Regresar al inicio
-                onMouseEnter={(e) => hoverBtn(e, true)} 
-                onMouseLeave={(e) => hoverBtn(e, false)}
-                style={btnStyle}
-              >
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
-                  }}
-                >
-                  <FaHome style={{ marginRight: '10px', fontSize: '1.3rem' }} />
-                  <span style={{ flex: 1, textAlign: 'center' }}>Inicio</span>
-                </div>
-              </Button>
-            </Col>
-            {currentPath !== '/comite' && (
-              <Col md={3} className="mb-3">
-                <Button
-                  variant="danger"
-                  size="sm"
-                  block
-                  onClick={() => navigate('/comite')} // Ir a Comité
-                  onMouseEnter={(e) => hoverBtn(e, true)} 
-                  onMouseLeave={(e) => hoverBtn(e, false)}
-                  style={btnStyle}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
-                    }}
-                  >
-                    <FaUsers style={{ marginRight: '10px', fontSize: '1.3rem' }} />
-                    <span style={{ flex: 1, textAlign: 'center' }}>Comité</span>
-                  </div>
-                </Button>
-              </Col>
-            )}
-            {currentPath !== '/politica' && (
-              <Col md={3} className="mb-3">
-                <Button
-                  variant="danger"
-                  size="sm"
-                  block
-                  onClick={() => navigate('/politica')} // Ir a Política de Seguridad
-                  onMouseEnter={(e) => hoverBtn(e, true)} 
-                  onMouseLeave={(e) => hoverBtn(e, false)}
-                  style={btnStyle}
-                >
-                  <div
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',  // Alinea el ícono y el texto en el centro verticalmente
-                    }}
-                  >
-                    <FaFileAlt style={{ marginRight: '10px', fontSize: '1.3rem' }} />
-                    <span style={{ flex: 1, textAlign: 'center' }}>Política de Seguridad</span>
-                  </div>
-                </Button>
-              </Col>
-            )}
-          </Row>
-        </div>
+        
+        
 
         {/* Primera Imagen: desde la carpeta public */}
         <div className="text-center mb-5">

@@ -3,7 +3,7 @@ import { ref, onValue, push, set } from 'firebase/database';
 import { db, auth } from '../firebase';  // Asegúrate de que firebase.js esté configurado correctamente
 import Navbar from '../components/Navbar'; // Importa el Navbar
 
-// Componente para agregar un comentario
+
 const addComment = async (postId, commentContent) => {
   const user = auth.currentUser;
   if (!user) {
@@ -22,7 +22,7 @@ const addComment = async (postId, commentContent) => {
   });
 };
 
-// Componente principal del Foro
+
 const ForoTrabajadores = () => {
   const [posts, setPosts] = useState([]);
   const [newComment, setNewComment] = useState('');
