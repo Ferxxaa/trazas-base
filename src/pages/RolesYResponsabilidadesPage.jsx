@@ -97,12 +97,23 @@ const ReglamentoPage = () => {
     color: 'white',  // Color del texto
     fontWeight: 'bold',  // Hacer el texto en negrita
     transition: 'background-color 0.3s, border-color 0.3s',  // Transición suave
+    position: 'fixed',  // Fijar el botón en la parte inferior
+    bottom: '20px',  // Ubicación 20px desde abajo
+    left: '50%',  // Centrar el botón horizontalmente
+    transform: 'translateX(-50%)',  // Ajuste para centrarlo completamente
+    zIndex: 1000,  // Asegura que el botón esté encima de otros elementos
+    maxWidth: '90%',  // Asegura que el botón no se desborde en pantallas pequeñas
   };
 
   // Función para hover
   const hoverBtn = (e, enter) => {
     e.target.style.backgroundColor = enter ? '#e57373' : '#b32400';
     e.target.style.borderColor = enter ? '#e57373' : '#b32400';
+  };
+
+  // Función para volver atrás
+  const goBack = () => {
+    navigate(-1);  // Retrocede a la página anterior en el historial
   };
 
   return (
@@ -118,8 +129,6 @@ const ReglamentoPage = () => {
           minHeight: '100vh',
         }}
       >
-        
-
         <Container className="py-5">
           <Row className="justify-content-center mb-4">
             <Col md={12} className="text-center">
@@ -162,6 +171,16 @@ const ReglamentoPage = () => {
           )}
         </Modal>
       </div>
+
+      {/* Botón Volver Atrás */}
+      <Button
+        style={btnStyle}
+        onClick={goBack}  // Llamar a la función para retroceder
+        onMouseEnter={(e) => hoverBtn(e, true)}
+        onMouseLeave={(e) => hoverBtn(e, false)}
+      >
+        Regresar
+      </Button>
     </div>
   );
 };

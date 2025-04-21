@@ -18,10 +18,12 @@ const RecursosHumanosPage = () => {
     color: 'white',  // Color del texto
     fontWeight: 'bold',  // Hacer el texto en negrita
     transition: 'background-color 0.3s, border-color 0.3s',  // Transición suave
-    position: 'fixed',  // Para mantener el botón en la misma posición
+    position: 'fixed',  // Fijar el botón en la parte inferior
     bottom: '20px',  // Ubicación 20px desde abajo
-    right: '20px',  // Ubicación 20px desde la derecha
+    left: '50%',  // Centrar el botón horizontalmente
+    transform: 'translateX(-50%)',  // Ajuste para centrarlo completamente
     zIndex: 1000,  // Asegura que el botón esté encima de otros elementos
+    maxWidth: '90%',  // Asegura que el botón no se desborde en pantallas pequeñas
   };
 
   // Función para el hover
@@ -96,7 +98,7 @@ const RecursosHumanosPage = () => {
         onMouseEnter={(e) => hoverBtn(e, true)}
         onMouseLeave={(e) => hoverBtn(e, false)}
       >
-        Volver Atrás
+        Regresar
       </Button>
     </div>
   );

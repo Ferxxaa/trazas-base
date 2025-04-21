@@ -1,14 +1,20 @@
-// src/components/AdminRoute.jsx
+// components/AdminRoute.jsx
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 
 const AdminRoute = ({ element, user }) => {
-  // Verifica si el usuario está autenticado y tiene el rol de administrador
-  if (!user || user.email !== 'admin@example.com') {
+  // UID del administrador
+  const adminUID = 'SU2vSS0W0KaxRcdWe8OtaRYg0Jv2';
+
+  if (!user) {
     return <Navigate to="/login" />;
   }
 
-  return element;  // Devuelve el componente si el usuario es admin
+  if (user.uid !== adminUID) {
+    return <Navigate to="/" />;
+  }
+
+  return element;
 };
 
 export default AdminRoute;

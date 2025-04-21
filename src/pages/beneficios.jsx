@@ -1,8 +1,8 @@
 import React from 'react';
-import { Container, Row, Col, Card, Accordion } from 'react-bootstrap';
+import { Container, Row, Col, Card, Accordion, Button } from 'react-bootstrap';
 import { FaTooth, FaPlane, FaGift, FaHeartbeat, FaShoppingCart } from 'react-icons/fa';
 import { FaHandHoldingUsd } from 'react-icons/fa';
-
+import { useNavigate } from 'react-router-dom'; // Importamos useNavigate para el botón de regresar
 
 import Navbar from '../components/Navbar';
 
@@ -52,9 +52,6 @@ const beneficios = [
         </ul>
       )
     },      
-  
-  
-  
   {
     icon: <FaPlane size={40} color="#17a2b8" />,
     title: 'Descuentos en Viajes y Destinos',
@@ -91,7 +88,7 @@ const beneficios = [
     icon: <FaShoppingCart size={40} color="#28a745" />,
     title: 'Descuentos en Compras',
     description: 'Aprovecha descuentos en una amplia red de comercios aliados.',
-    image: '/images/descuentos.png',
+    image: '/images/Descuentos.png',
     extra: (
         <ul style={{ textAlign: 'left' }}>
           <li>Abastible</li>
@@ -103,11 +100,16 @@ const beneficios = [
           <li>F Facción</li>
         </ul>
       )
-      
   }
 ];
 
 const Beneficios = () => {
+  const navigate = useNavigate(); // Usamos useNavigate de React Router
+
+  const goBack = () => {
+    navigate(-1); // Esto lleva al usuario a la página anterior
+  };
+
   return (
     <>
       <Navbar />
@@ -126,6 +128,11 @@ const Beneficios = () => {
           style={{ maxWidth: '180px', marginBottom: '2px' }}
         />
         <h4 style={{ color: '#004d99', marginTop: '10px', fontWeight: 'bold' }}>Accede a:</h4>
+      </div>
+
+      {/* Botón de regreso */}
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+        <Button variant="outline-primary" onClick={goBack}>Regresar</Button>
       </div>
 
       <Container fluid className="py-5" style={{ fontFamily: "'Roboto', sans-serif", backgroundColor: '#f9f9f9' }}>

@@ -23,7 +23,7 @@ const Dashboard = () => {
 
   const [usuariosTotales, setUsuariosTotales] = useState(0);
   const [usuariosPorDia, setUsuariosPorDia] = useState([]);
-  const [graficoUsuarios, setGraficoUsuarios] = useState([]);  // Aquí almacenamos los usuarios para la tabla
+  const [graficoUsuarios, setGraficoUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -35,9 +35,8 @@ const Dashboard = () => {
           const usuariosArray = Object.values(usuarios);
           setUsuariosTotales(usuariosArray.length);
 
-          // Calculando los usuarios registrados por día
           const usuariosPorDiaData = usuariosArray.reduce((acc, user) => {
-            const fecha = user.fechaRegistro;  // Formato YYYY-MM-DD
+            const fecha = user.fechaRegistro;
             acc[fecha] = (acc[fecha] || 0) + 1;
             return acc;
           }, {});
@@ -49,7 +48,6 @@ const Dashboard = () => {
 
           setUsuariosPorDia(usuariosPorDiaArray);
 
-          // Guardar la lista de usuarios en 'graficoUsuarios' para la tabla
           const usuariosParaTabla = usuariosArray.map((user) => ({
             id: user.id,
             name: user.nombre || 'Sin nombre',
@@ -118,6 +116,14 @@ const Dashboard = () => {
                   >
                     Agregar Usuario
                   </Button>
+                  <Button
+                    variant="outlined"
+                    color="primary"
+                    onClick={() => navigate('/admin-reportes')}
+                    sx={{ mt: 1, width: '100%' }}
+                  >
+                    Ver Reportes
+                  </Button>
                 </Paper>
               </Grid>
 
@@ -140,7 +146,7 @@ const Dashboard = () => {
               </Grid>
 
               {/* Lista de usuarios */}
-              <Grid item xs={12} sx={{ mt: 3 }}> {/* Aquí agregamos el margen superior */}
+              <Grid item xs={12} sx={{ mt: 3 }}>
                 <Paper sx={{ p: 2, bgcolor: 'white', boxShadow: 3 }}>
                   <Typography variant="h6" gutterBottom color="textSecondary">
                     Lista de Usuarios

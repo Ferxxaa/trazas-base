@@ -7,7 +7,10 @@ import Navbar from '../components/Navbar';
 const ComitePage = () => {
   const navigate = useNavigate();
 
-  
+  // Función para manejar la navegación atrás
+  const handleBack = () => {
+    navigate(-1); // Navegar hacia la página anterior
+  };
 
   return (
     <>
@@ -23,10 +26,6 @@ const ComitePage = () => {
         }}
       >
         <Container className="py-5">
-          {/* Botones de navegación arriba */}
-          
-
-
           {/* Título */}
           <h1 className="text-center mb-5" style={{ color: '#c62828' }}>
             Comité de Consulta y Participación
@@ -71,9 +70,8 @@ const ComitePage = () => {
                   <Card.Body>
                     <Card.Title className="text-center" style={{ color: '#c62828' }}></Card.Title>
                     <p className="fs-5" style={{ textAlign: 'justify' }}>
-  “Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participación, en un proceso previo, anterior a la toma de decisiones, referente a políticas y situaciones relevantes en Matriz de Seguridad y Salud Ocupacional”.
-</p>
-
+                      “Es un grupo de trabajadores presididos por el Representante, los cuales canalizan opiniones y promueven la participación, en un proceso previo, anterior a la toma de decisiones, referente a políticas y situaciones relevantes en Matriz de Seguridad y Salud Ocupacional”.
+                    </p>
                   </Card.Body>
                 </Card>
               </Col>
@@ -92,6 +90,29 @@ const ComitePage = () => {
                   boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)', // Sombra
                 }}
               />
+            </Col>
+          </Row>
+
+          {/* Botón de Atrás (ubicado en la parte inferior) */}
+          <Row className="justify-content-center mt-5">
+            <Col md={4}>
+              <Button
+                onClick={handleBack}
+                style={{
+                  fontSize: '0.8rem',
+                  padding: '8px 16px',
+                  backgroundColor: '#b32400',
+                  border: '2px solid #b32400',
+                  borderRadius: '10px',
+                  textAlign: 'center',
+                  color: 'white',
+                  fontWeight: 'bold',
+                  transition: 'background-color 0.3s, border-color 0.3s',
+                }}
+                block
+              >
+                Regresar
+              </Button>
             </Col>
           </Row>
         </Container>

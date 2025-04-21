@@ -14,8 +14,8 @@ const Login = () => {
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      if (user.email === 'admin@example.com') {
+  
+      if (user.uid === 'SU2vSS0W0KaxRcdWe8OtaRYg0Jv2') {
         navigate('/admin');
       } else {
         navigate('/');
@@ -24,6 +24,7 @@ const Login = () => {
       alert('Error al iniciar sesión: ' + error.message);
     }
   };
+  
 
   return (
     <div 

@@ -25,6 +25,11 @@ const ReglamentoPage = () => {
     e.target.style.borderColor = enter ? '#e57373' : '#b32400';
   };
 
+  // Función para ir atrás
+  const handleBack = () => {
+    navigate(-1); // Navegar hacia la página anterior
+  };
+
   return (
     <div>
       <Navbar />
@@ -38,8 +43,6 @@ const ReglamentoPage = () => {
           minHeight: '100vh',
         }}
       >
-        
-
         <Container className="py-5 text-center">
           <h1 style={{ color: '#e60000', fontSize: '2.5rem', fontWeight: 'bold' }}>Descargar Documentos del Reglamento</h1>
           <p>Puedes descargar los siguientes documentos reglamentarios:</p>
@@ -72,6 +75,21 @@ const ReglamentoPage = () => {
                   📘 Descargar SubContrato
                 </Button>
               </a>
+            </Col>
+          </Row>
+
+          {/* Botón de Atrás sin flecha */}
+          <Row className="justify-content-center mt-5">
+            <Col md={4}>
+              <Button
+                onClick={handleBack}
+                style={btnStyle}
+                block
+                onMouseEnter={(e) => hoverBtn(e, true)}
+                onMouseLeave={(e) => hoverBtn(e, false)}
+              >
+                Regresar
+              </Button>
             </Col>
           </Row>
         </Container>
