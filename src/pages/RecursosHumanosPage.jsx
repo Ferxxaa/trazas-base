@@ -18,12 +18,21 @@ const RecursosHumanosPage = () => {
     color: 'white',  // Color del texto
     fontWeight: 'bold',  // Hacer el texto en negrita
     transition: 'background-color 0.3s, border-color 0.3s',  // Transición suave
+    position: 'fixed',  // Para mantener el botón en la misma posición
+    bottom: '20px',  // Ubicación 20px desde abajo
+    right: '20px',  // Ubicación 20px desde la derecha
+    zIndex: 1000,  // Asegura que el botón esté encima de otros elementos
   };
 
   // Función para el hover
   const hoverBtn = (e, enter) => {
     e.target.style.backgroundColor = enter ? '#e57373' : '#b32400';
     e.target.style.borderColor = enter ? '#e57373' : '#b32400';
+  };
+
+  // Función para volver atrás
+  const goBack = () => {
+    navigate(-1);  // Retrocede a la página anterior en el historial
   };
 
   return (
@@ -42,13 +51,11 @@ const RecursosHumanosPage = () => {
         }}
       >
         {/* Botones de navegación arriba */}
-        
-
         <Container className="py-5">
           {/* Título principal */}
           <Row className="justify-content-center mb-4">
             <Col md={12} className="text-center">
-              <h1 style={{ color: '#e60000', fontSize: '2.5rem', fontWeight: 'bold' }}>Recursos Humanos</h1>
+              <h1 style={{ color: '#e60000', fontSize: '2.5rem', fontWeight: 'bold' }}>Representante de Recuersos Humanos</h1>
             </Col>
           </Row>
 
@@ -81,6 +88,16 @@ const RecursosHumanosPage = () => {
           </Row>
         </Container>
       </div>
+
+      {/* Botón Volver Atrás */}
+      <Button
+        style={btnStyle}
+        onClick={goBack}  // Llamar a la función para retroceder
+        onMouseEnter={(e) => hoverBtn(e, true)}
+        onMouseLeave={(e) => hoverBtn(e, false)}
+      >
+        Volver Atrás
+      </Button>
     </div>
   );
 };
