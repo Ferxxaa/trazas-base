@@ -117,19 +117,66 @@ const Home = () => {
       ...fontFamilyStyle
     }}>
       <Carousel fade interval={5000}>
-        <Carousel.Item>
-          <img className="d-block w-100" src="/images/ArqIng-B.png" alt="Slide 1"
-            style={{ maxHeight: '500px', objectFit: 'cover' }} />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="d-block w-100" src="/images/carrusel4.png" alt="Slide 2"
-            style={{ maxHeight: '500px', objectFit: 'cover' }} />
-        </Carousel.Item>
-        <Carousel.Item>
-          <img className="d-block w-100" src="/images/carrusel5.png" alt="Slide 3"
-            style={{ maxHeight: '500px', objectFit: 'cover' }} />
-        </Carousel.Item>
-      </Carousel>
+  <Carousel.Item>
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      textAlign: 'center',
+      color: 'white',
+      backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo más claro
+      padding: '10px 20px', // Menos padding para mayor compactación
+      borderRadius: '10px',
+      width: '60%', // Fondo aún más pequeño
+    }}>
+      <h2 style={{ fontSize: '2rem' }}>INTRENET</h2>
+      <p style={{ fontSize: '1.2rem' }}>Más cerca de ti.</p>
+    </div>
+    <img className="d-block w-100" src="/images/ArqIng-B.png" alt="Slide 1"
+      style={{ maxHeight: '500px', objectFit: 'cover' }} />
+  </Carousel.Item>
+  <Carousel.Item>
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      textAlign: 'center',
+      color: 'white',
+      backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo más claro
+      padding: '10px 20px', // Menos padding para mayor compactación
+      borderRadius: '10px',
+      width: '60%', // Fondo aún más pequeño
+    }}>
+      <h2 style={{ fontSize: '2rem' }}>INTRENET</h2>
+      <p style={{ fontSize: '1.2rem' }}>Más cerca de ti.</p>
+    </div>
+    <img className="d-block w-100" src="/images/carrusel4.png" alt="Slide 2"
+      style={{ maxHeight: '500px', objectFit: 'cover' }} />
+  </Carousel.Item>
+  <Carousel.Item>
+    <div style={{
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      textAlign: 'center',
+      color: 'white',
+      backgroundColor: 'rgba(0, 0, 0, 0.4)', // Fondo más claro
+      padding: '10px 20px', // Menos padding para mayor compactación
+      borderRadius: '10px',
+      width: '60%', // Fondo aún más pequeño
+    }}>
+      <h2 style={{ fontSize: '2rem' }}>INTRENET</h2>
+      <p style={{ fontSize: '1.2rem' }}>Más cerca de ti.</p>
+    </div>
+    <img className="d-block w-100" src="/images/carrusel5.png" alt="Slide 3"
+      style={{ maxHeight: '500px', objectFit: 'cover' }} />
+  </Carousel.Item>
+</Carousel>
+
+
 
       <Container className="py-4 px-3">
         <Row className="g-3 justify-content-center">

@@ -43,11 +43,12 @@ const AdminReportes = () => {
               <p>No hay reportes registrados.</p>
             ) : (
               <div className="table-responsive">
-                <Table striped bordered hover>
+                <Table striped bordered hover size="sm">
                   <thead>
                     <tr>
                       <th>ID</th>
                       <th>Reporte</th>
+                      <th>Categoría</th> {/* Nueva columna de categoría */}
                       <th>Fecha</th>
                       <th>Acciones</th>
                     </tr>
@@ -57,6 +58,7 @@ const AdminReportes = () => {
                       <tr key={reporte.id}>
                         <td>{reporte.id}</td>
                         <td>{reporte.texto}</td>
+                        <td>{reporte.categoria}</td> {/* Mostrar categoría */}
                         <td>{reporte.fecha}</td>
                         <td>
                           <Button
