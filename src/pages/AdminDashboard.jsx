@@ -13,7 +13,7 @@ import Navbar from '../components/Navbar';
 
 // Importar Firebase
 import { db, auth } from '../firebase';
-import { ref, get } from 'firebase/database';
+import { ref, get, remove } from 'firebase/database';
 
 const ITALIAN_RED = '#C62B27';  
 const LIGHT_GRAY = '#F4F6F9';  
@@ -28,9 +28,9 @@ const Dashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false); // Variable para verificar si el usuario es admin
 
   useEffect(() => {
-    const user = auth.currentUser; // Obtener el usuario actual desde Firebase
+    const user = auth.currentUser;
     if (!user) {
-      navigate('/login'); // Redirige si no hay usuario autenticado
+      navigate('/login');
       return;
     }
 
@@ -42,10 +42,9 @@ const Dashboard = () => {
           const usuariosArray = Object.values(usuarios);
           setUsuariosTotales(usuariosArray.length);
 
-          // Verifica si el usuario actual es admin
           const currentUser = usuariosArray.find(user => user.id === auth.currentUser.uid);
           if (currentUser && currentUser.role === 'admin') {
-            setIsAdmin(true); // Si el usuario tiene rol 'admin', podemos darle acceso a eliminar
+            setIsAdmin(true);
           }
 
           const usuariosPorDiaData = usuariosArray.reduce((acc, user) => {
@@ -118,9 +117,10 @@ const Dashboard = () => {
         <Navbar />
         <Box component="main" sx={{ flex: 1, py: 4, px: 2, bgcolor: LIGHT_GRAY, pt: 10 }}>
           <Container maxWidth="lg">
-            <Grid container spacing={2} sx={{ flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+            <Grid container spacing={2} sx={{ flexDirection: { xs: 'column', md: 'row' }, gap: 2 }}>
+              
               {/* Caja de usuarios registrados */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} md={6}>
                 <Paper sx={{ p: 2, textAlign: 'center', bgcolor: 'white', boxShadow: 3 }}>
                   <Typography variant="h6" color="textSecondary">Usuarios Registrados</Typography>
                   <Typography variant="h4" color="primary">
@@ -146,7 +146,7 @@ const Dashboard = () => {
               </Grid>
 
               {/* Gráfico de usuarios por día */}
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12} md={6}>
                 <Paper sx={{ p: 2, bgcolor: 'white', boxShadow: 3 }}>
                   <Typography variant="h6" gutterBottom color="textSecondary">
                     Usuarios por Día

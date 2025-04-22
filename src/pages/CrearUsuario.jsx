@@ -58,7 +58,7 @@ const CrearUsuario = () => {
 
       alert('Usuario creado con éxito');
       setErrorMessage('');
-      navigate('/dashboard');
+      navigate('/home');
     } catch (error) {
       console.error('Error al registrar usuario: ', error);
 
