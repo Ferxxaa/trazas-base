@@ -4,7 +4,7 @@ import { Navigate } from 'react-router-dom';
 
 const AdminRoute = ({ element, user }) => {
   // UID del administrador
-  const adminUID = 'SU2vSS0W0KaxRcdWe8OtaRYg0Jv2';
+  const adminUID = 'OPzraOsNQ5YXrEBNSPGOMSTpGJJ3';
 
   if (!user) {
     return <Navigate to="/login" />;

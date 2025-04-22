@@ -12,8 +12,8 @@ import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 
 // Importar Firebase
-import { db } from '../firebase';
-import { ref, get, remove } from 'firebase/database';
+import { db, auth } from '../firebase';
+import { ref, get } from 'firebase/database';
 
 const ITALIAN_RED = '#C62B27';  
 const LIGHT_GRAY = '#F4F6F9';  
@@ -25,8 +25,15 @@ const Dashboard = () => {
   const [usuariosPorDia, setUsuariosPorDia] = useState([]);
   const [graficoUsuarios, setGraficoUsuarios] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(false); // Variable para verificar si el usuario es admin
 
   useEffect(() => {
+    const user = auth.currentUser; // Obtener el usuario actual desde Firebase
+    if (!user) {
+      navigate('/login'); // Redirige si no hay usuario autenticado
+      return;
+    }
+
     const usuariosRef = ref(db, 'usuarios');
     get(usuariosRef)
       .then((snapshot) => {
@@ -34,6 +41,12 @@ const Dashboard = () => {
           const usuarios = snapshot.val();
           const usuariosArray = Object.values(usuarios);
           setUsuariosTotales(usuariosArray.length);
+
+          // Verifica si el usuario actual es admin
+          const currentUser = usuariosArray.find(user => user.id === auth.currentUser.uid);
+          if (currentUser && currentUser.role === 'admin') {
+            setIsAdmin(true); // Si el usuario tiene rol 'admin', podemos darle acceso a eliminar
+          }
 
           const usuariosPorDiaData = usuariosArray.reduce((acc, user) => {
             const fecha = user.fechaRegistro;
@@ -63,9 +76,14 @@ const Dashboard = () => {
       .finally(() => {
         setLoading(false);
       });
-  }, []);
+  }, [navigate]);
 
   const handleDeleteUser = (userId) => {
+    if (!isAdmin) {
+      alert("No tienes permisos para eliminar usuarios");
+      return;
+    }
+
     remove(ref(db, `usuarios/${userId}`))
       .then(() => {
         console.log('Usuario eliminado');
@@ -170,9 +188,11 @@ const Dashboard = () => {
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.apellido}</td>
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>{user.correo}</td>
                             <td style={{ padding: '8px', borderBottom: '1px solid #ddd' }}>
-                              <Button color="primary" onClick={() => handleDeleteUser(user.id)}>
-                                Eliminar
-                              </Button>
+                              {isAdmin && (
+                                <Button color="primary" onClick={() => handleDeleteUser(user.id)}>
+                                  Eliminar
+                                </Button>
+                              )}
                             </td>
                           </tr>
                         ))}

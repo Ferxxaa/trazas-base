@@ -3,17 +3,18 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { ref, set } from 'firebase/database';
 import { auth } from '../firebase';
 import { db } from '../firebase';
-import { useNavigate } from 'react-router-dom'; // <-- Importa useNavigate
-import './Login.css'; // Importa el archivo CSS
+import { useNavigate } from 'react-router-dom'; 
+import './Login.css';
 
 const CrearUsuario = () => {
-  const navigate = useNavigate(); // <-- Inicializa el hook
+  const navigate = useNavigate();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [rut, setRut] = useState('');
+  const [role, setRole] = useState('usuario');  // Definir el estado para el rol
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleRegister = async (e) => {
@@ -45,17 +46,19 @@ const CrearUsuario = () => {
 
       const user = userCredential.user;
 
+      // Guardamos el rol elegido en la base de datos
       const userRef = ref(db, 'usuarios/' + user.uid);
       await set(userRef, {
         nombre: firstName,
         apellido: lastName,
         rut: rut,
         correo: email || null,
+        rol: role, // Guardamos el rol seleccionado
       });
 
       alert('Usuario creado con éxito');
       setErrorMessage('');
-      navigate('/dashboard'); // <-- Redirigir al Dashboard después de crear el usuario
+      navigate('/dashboard');
     } catch (error) {
       console.error('Error al registrar usuario: ', error);
 
@@ -74,7 +77,6 @@ const CrearUsuario = () => {
   return (
     <div className="login-container">
       <div className="login-card">
-        {/* Botón de flecha para volver */}
         <button
           className="back-button"
           onClick={() => navigate('/admin')}
@@ -128,6 +130,11 @@ const CrearUsuario = () => {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+          {/* Selector de rol */}
+          <select value={role} onChange={(e) => setRole(e.target.value)}>
+            <option value="usuario">Usuario</option>
+            <option value="admin">Admin</option>
+          </select>
           <button type="submit">Registrar</button>
         </form>
       </div>
